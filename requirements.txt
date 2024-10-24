@@ -1,0 +1,20 @@
+# Core
+Django==5.1.1
+python-dotenv==1.0.1
+str2bool==1.1
+
+# UI 
+django-admin-datta==1.0.11
+
+# Tooling
+django-dynamic-datatb==1.0.25
+django-api-generator==1.0.17
+django-debug-toolbar==4.4.6
+
+# Deployment
+whitenoise==6.7.0
+gunicorn==23.0.0
+
+# DB Layer
+# psycopg2-binary
+# mysqlclient
