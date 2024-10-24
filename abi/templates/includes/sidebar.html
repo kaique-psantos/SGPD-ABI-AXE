@@ -22,7 +22,7 @@
         <li class="nav-item pcoded-menu-caption">
           <label>Menu</label>
         </li>
-        <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item {% if 'index' in segment %}active{% endif %}">
+        <li data-username="" class="nav-item {% if 'index' in segment %}active{% endif %}">
           {% if request.user.is_superuser %}
           <a href="{% url 'admin:index' %}" class="nav-link ">
           {% else %}
@@ -32,6 +32,11 @@
           </a>
         </li>
         
+        <li data-username="" class="nav-item {% if 'teste' in segment %}active{% endif %}">
+          <a href="{% url 'teste' %}" class="nav-link ">
+            <span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Teste</span>
+          </a>
+        </li>
 
         {% if not request.user.is_authenticated %}
         <li
