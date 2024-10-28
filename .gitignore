@@ -10,7 +10,6 @@ env
 env__
 /staticfiles/
 .env
-env.sample
 anotacao.txt
 
 
