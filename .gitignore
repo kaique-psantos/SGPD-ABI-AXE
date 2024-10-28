@@ -9,8 +9,9 @@ build/
 env
 env__
 /staticfiles/
+.env
+env.sample
+anotacao.txt
 
-#src
-#*.sqlite*
 
-#.env
+
