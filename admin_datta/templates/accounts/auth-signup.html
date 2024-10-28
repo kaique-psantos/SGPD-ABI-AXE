@@ -18,7 +18,8 @@
                     <div class="mb-4">
                         <i class="feather icon-user-plus auth-icon"></i>
                     </div>
-                    <h3 class="mb-4">Sign up</h3>
+
+                    <h3 class="mb-4">Cadastre-se</h3>
                     {% for field in form %}
                     <div class="input-group mb-3">
                         {{ field }}
@@ -28,17 +29,12 @@
                     <div class="form-group text-left mt-4">
                         <div class="checkbox checkbox-fill d-inline">
                             <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-1" checked="">
-                            <label for="checkbox-fill-1" class="cr"> Save Details</label>
-                        </div>
-                    </div>
-                    <div class="form-group text-left">
-                        <div class="checkbox checkbox-fill d-inline">
-                            <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2">
-                            <label for="checkbox-fill-2" class="cr">Send me the <a href="#!"> Newsletter</a> weekly.</label>
+                            <label for="checkbox-fill-1" class="cr"> Salvar Informações</label>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary shadow-2 mb-4">Sign up</button>
-                    <p class="mb-0 text-muted">Already have an account? <a href="{% url 'login' %}"> Log in</a></p>
+                    <p class="mb-2 text-muted">Já tem conta? <a href="{% url 'login' %}"> Acesse</a></p>
+                    <h6 class="mb-0">SGPD - SISTEMA DE GERENCIAMENTO DE PESSOAS E DOCUMENTOS</h6>
                 </form>
             </div>
         </div>
