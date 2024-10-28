@@ -1,18 +1,15 @@
-
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.authtoken.views import obtain_auth_token # <-- NEW
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
+    path('admin/', admin.site.urls),  # Admin padrão primeiro
     path('abi/', include('abi.urls')),
-    path("admin/", admin.site.urls),
-    path("", include('admin_datta.urls')),
-    path('', include('django_dyn_dt.urls')), # <-- NEW: Dynamic_DT Routing   
+    path('', include('django_dyn_dt.urls')),  # <-- Dynamic_DT Routing
+    path('', include('admin_datta.urls')),  # Admin_Datta por último, se necessário
 ]
 
-# Lazy-load on routing is needed
-# During the first build, API is not yet generated
 try:
-    urlpatterns.append( path("login/jwt/", view=obtain_auth_token) )
+    urlpatterns.append(path("login/jwt/", view=obtain_auth_token))
 except:
     pass

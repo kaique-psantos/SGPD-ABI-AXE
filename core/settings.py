@@ -95,14 +95,23 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+
+DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
+DB_USERNAME = os.getenv('DB_USERNAME' , None)
+DB_PASS     = os.getenv('DB_PASS'     , None)
+DB_HOST     = os.getenv('DB_HOST'     , None)
+DB_PORT     = os.getenv('DB_PORT'     , None)
+DB_NAME     = os.getenv('DB_NAME'     , None)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Backend do MySQL
-        'NAME': 'sgpd_abiaxe',                        # Nome do banco de dados
-        'USER': 'root',                        # Usuário do banco de dados
-        'PASSWORD': 'root',                    # Senha do usuário
-        'HOST': 'localhost',                   # Endereço do servidor, geralmente localhost
-        'PORT': '3306',                        # Porta do MySQL, 3306 é a padrão
+        'ENGINE'  : 'django.db.backends.' + DB_ENGINE,
+        'NAME'    : DB_NAME,
+        'USER'    : DB_USERNAME,
+        'PASSWORD': DB_PASS,
+        'HOST'    : DB_HOST,
+        'PORT'    : DB_PORT,
     }
 }
 
@@ -130,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = "UTf-8"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
@@ -143,7 +152,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-DYN_DB_PKG_ROOT = os.path.dirname( inspect.getfile( django_dyn_dt ) ) # <-- NEW: Dynamic_DT
+DYN_DB_PKG_ROOT = os.path.dirname(inspect.getfile(django_dyn_dt)) # <-- NEW: Dynamic_DT
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
