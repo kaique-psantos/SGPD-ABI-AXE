@@ -31,7 +31,7 @@
             <span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span>
           </a>
         </li>
-        
+
         <li data-username="" class="nav-item {% if 'teste' in segment %}active{% endif %}">
           <a href="{% url 'teste' %}" class="nav-link ">
             <span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Teste</span>
@@ -61,7 +61,7 @@
         {% if app_list %}
           {% for app in app_list %}
             {% if app.has_perms and not app.pinned %}
-              <li 
+              <li
                 data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
                 class="nav-item pcoded-hasmenu"
               >
