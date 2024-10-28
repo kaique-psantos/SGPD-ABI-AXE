@@ -1,5 +1,3 @@
-
-
 import os, random, string, inspect
 from pathlib import Path
 from dotenv import load_dotenv
@@ -94,8 +92,6 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-
 
 DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
 DB_USERNAME = os.getenv('DB_USERNAME' , None)
