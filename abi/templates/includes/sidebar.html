@@ -38,6 +38,12 @@
           </a>
         </li>
 
+        <li data-username="" class="nav-item {% if 'cargo' in segment %}active{% endif %}">
+          <a href="{% url 'cargo' %}" class="nav-link ">
+            <span class="pcoded-micon"><i class="feather icon-tag"></i></span><span class="pcoded-mtext">Cargos</span>
+          </a>
+        </li>
+
         {% if not request.user.is_authenticated %}
         <li
           data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe"

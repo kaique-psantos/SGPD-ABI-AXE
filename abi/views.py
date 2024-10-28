@@ -14,3 +14,10 @@ def teste(request):
     'segment'  : 'teste',
   }
   return render(request, "pages/teste.html", context)
+
+def cargo(request):
+
+  context = {
+    'segment'  : 'cargo',
+  }
+  return render(request, "pages/cargo.html", context)
