@@ -152,7 +152,7 @@ DYN_DB_PKG_ROOT = os.path.dirname(inspect.getfile(django_dyn_dt)) # <-- NEW: Dyn
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(DYN_DB_PKG_ROOT, "templates/static"),                # <-- NEW: Dynamic_DT 
+    #os.path.join(DYN_DB_PKG_ROOT, "templates/static"),                # <-- NEW: Dynamic_DT 
 )
 
 #if not DEBUG:

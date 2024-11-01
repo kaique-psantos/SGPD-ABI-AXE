@@ -6,7 +6,7 @@ import {
     editRow,
     search,
     columnsManage,
-    exportController, 
+    exportController,
     addController,
     middleContainer,
 } from './controller/index.js'
@@ -33,7 +33,7 @@ const newColumn = []
 myData.data.forEach((d,i) => {
 
     const editBtn = `<i class="btn-outline-primary edit bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>`
-    
+
     const removeBtn = `<i class="btn-outline-danger remove bi bi-eraser"></i>`
 
     newColumn.push(editBtn + " &nbsp; " + removeBtn)
@@ -56,7 +56,7 @@ dataTable.table.addEventListener('click', (e) => {
             formConstructor(formTypes.EDIT,rowContent)
         }
     }
-}) 
+})
 
 window.onload = () => {
     if (sessionStorage.getItem('register') == null)
