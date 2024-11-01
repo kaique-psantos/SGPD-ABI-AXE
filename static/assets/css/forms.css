@@ -544,9 +544,50 @@ form .related-widget-wrapper ul {
     display: inline-block;
     margin-left: 0;
     padding-left: 0;
+
 }
 
 .clearable-file-input input {
     margin-top: 0;
 }
+/*
+#id_est_cod {
+    display: flex;
+    width: 15em;
+    height: 35px;
+    font-size: 14px;
+}
 
+#id_cid_descricao {
+    display: flex;
+    width: 60%;
+    height: 35px;
+    font-size: 14px;
+}
+
+.related-widget-wrapper  {
+    display: flex;
+    align-items: center;
+    gap: 10px;  Espaço entre o select e os ícones
+}
+
+
+.card-body form .module{
+    display: flex;
+    gap: 20px;  Espaço entre os elementos
+}
+
+
+.field-cid_descricao,
+.field-est_cod {
+    flex: 1;
+}
+
+#id_cid_descricao{
+    width: 100%;
+}
+#id_est_cod {
+    width: 10em;
+}
+
+*/

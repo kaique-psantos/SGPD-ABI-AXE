@@ -17,10 +17,11 @@
 
                     
 
-                    <div class="mb-4">
-                        <i class="feather icon-unlock auth-icon"></i>
+                    <div class="mb-1">
+                        {% comment %} <i class="feather icon-unlock auth-icon"></i> {% endcomment %}
+                        <img src="{% static 'assets/images/logo/logo_10_anos.png' %}" alt="Logo" style="width: 125px">
                     </div>
-                    <h3 class="mb-4">Login</h3>
+                    <h3 class="mb-4 h3">Login</h3>
                     {% if form.non_field_errors %}
                         {% for error in form.non_field_errors %}
                             <span class="text-danger d-block my-3">{{ error }}</span>
@@ -37,10 +38,14 @@
                             <label for="checkbox-fill-a1" class="cr"> Salvar Informações</label>
                         </div>
                     </div>
-                    <button class="btn btn-primary shadow-2 mb-4">Login</button>
-                    <p class="mb-0 text-muted">Esqueceu a senha? <a href="{% url 'password_reset' %}">Redefinir</a></p>
-                    <p class="mb-3 text-muted">Não tem conta? <a href="{% url 'register' %}">Cadastre-se</a></p>
-                    <h6 class="mb-0">SGPD - SISTEMA DE GERENCIAMENTO DE PESSOAS E DOCUMENTOS</h6>
+                    <button class="btn btn-primary shadow-2 mb-4">Acessar</button>
+                    
+                    {% comment %} <p class="mb-0 text-muted">Esqueceu a senha? <a href="{% url 'password_reset' %}">Redefinir</a></p>
+                    <p class="mb-3 text-muted">Não tem conta? <a href="{% url 'register' %}">Cadastre-se</a></p> {% endcomment %}
+                    
+                    <label>SGPD - SISTEMA DE GERENCIAMENTO DE PESSOAS E DOCUMENTOS</label>
+                
+                
                 </form>
             </div>
         </div>
