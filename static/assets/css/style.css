@@ -10597,3 +10597,23 @@ div.code-toolbar > .toolbar span:hover {
 	}
 }
 
+.responsive-logo {
+  width: 450px;
+}
+
+/* Media query para telas pequenas */
+@media (max-width: 768px) {
+  .responsive-logo {
+      width: 250px; 
+  }
+}
+
+@media (max-width: 271px) {
+  .responsive-logo {
+      width: 150px; 
+  }
+}
+
+table input[type="checkbox"] {
+  display: none;
+}
