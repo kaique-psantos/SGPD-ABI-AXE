@@ -565,8 +565,8 @@ ul.timelist, .timelist li {
 
 /* RELATED WIDGET WRAPPER */
 .related-widget-wrapper {
-    float: left;       /* display properly in form rows with multiple fields */
-    overflow: hidden;  /* clear floated contents */
+    float: none;       
+    overflow: hidden;  
 }
 
 .related-widget-wrapper-link {
@@ -626,7 +626,7 @@ select + .related-widget-wrapper-link,
 }
 
 ul.errorlist {
-    margin: -25px 0 25px 0;
+    margin: -25px 0 25px 0px;
     list-style-type: none;
     color: #d96060;
 }
@@ -648,3 +648,5 @@ ul.errorlist {
     padding: 3px;
     border-radius: 5px 0 0 5px;
 }
+
+
