@@ -32,17 +32,6 @@
           </a>
         </li>
 
-        <li data-username="" class="nav-item {% if 'teste' in segment %}active{% endif %}">
-          <a href="{% url 'teste' %}" class="nav-link ">
-            <span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Teste</span>
-          </a>
-        </li>
-
-        <li data-username="" class="nav-item {% if 'cargo' in segment %}active{% endif %}">
-          <a href="{% url 'cargo' %}" class="nav-link ">
-            <span class="pcoded-micon"><i class="feather icon-tag"></i></span><span class="pcoded-mtext">Cargos</span>
-          </a>
-        </li>
 
         {% if not request.user.is_authenticated %}
         <li
