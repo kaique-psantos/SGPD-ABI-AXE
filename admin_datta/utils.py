@@ -3,7 +3,6 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-import datetime
 import json
 from django.template import Context
 from django.utils import translation
@@ -25,9 +24,8 @@ except ImportError:  # Django 1.11
 
 from django.contrib.admin import AdminSite
 from django.utils.text import capfirst
-from django.contrib import messages
+from django.contrib import messages, admin
 from django.contrib.admin.options import IncorrectLookupParameters
-from django.contrib import admin
 from django.utils.text import slugify
 
 try:

@@ -208,14 +208,15 @@ class EventoXPessoa(models.Model):
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True)
+    age_descricao = models.CharField(max_length=255, verbose_name = "Descrição")
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
-    age_descricao = models.TextField(verbose_name = "Descrição")
-
+    eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
+    
+    
     def __str__(self):
         return f"{self.age_data} - {self.age_descricao}"
 
     class Meta:
-        verbose_name = "Agenda"
+        verbose_name = "Compromisso"
         verbose_name_plural = "Agenda"
 

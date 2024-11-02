@@ -558,8 +558,24 @@ form .related-widget-wrapper ul {
     margin-top: 0;
 }
 
-.form-check{
-    padding: 0;
+.vCheckboxLabel{
+    margin-right: 10px;
 }
 
+.form-check{
+    padding: 0;
+    accent-color: rgb(130, 233, 247);
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5); /* Suporte para Safari e Chrome antigos */
+    -ms-transform: scale(1.5); /* Suporte para IE 9 */
+}
+
+
+#changelist-search {
+    width: 97.1%;
+    margin-left: 1.5%;
+}
 

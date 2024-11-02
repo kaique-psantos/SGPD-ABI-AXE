@@ -34,17 +34,24 @@
 {% endif %}
 
 {% block content %}
-    <div class="py-4 ms-4">
-        <div class="d-flex justify-content-between w-100 flex-wrap">
-            <div class="mb-3 mb-lg-0">
-                 <h1 class="h4">
-                     {% if add %}
-                        {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
-                     {% else %}
-                        {{ original|truncatewords:"18" }}
-                     {% endif %}
-                 </h1>
+    <div class="py-4">
+        <div>
+            <div class="row align-items-center">
+               <div class="col">
+                    <h1 class="h4 mb-0">
+                        {% if add %}
+                            {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
+                        {% else %}
+                            {{ original|truncatewords:"18" }}
+                        {% endif %}
+                    </h1>
+                </div>
+            <div> 
+                <button type="button" class="btn btn-secondary ms-4" onclick="window.history.back();">Voltar</button>
             </div>
+                
+        </div>
+            
             <div>
                 {% block object-tools %}
                     {% if change %}{% if not is_popup %}
@@ -56,7 +63,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-12 mb-4">
             <div class="card">
@@ -94,10 +101,11 @@
                                         data-model-name="{{ opts.model_name }}"
                                         {% endif %}>
                                 </script>
+                                
                             {% endblock %}
 
                             {% prepopulated_fields_js %}
-
+                            
                         </div>
                     </form>
                 </div>

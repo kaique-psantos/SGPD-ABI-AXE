@@ -49,25 +49,30 @@
 {% block content %}
 
 <div class="table-settings my-3">
-    <div class="row align-items-center justify-content-between">
-        <div class="col col-md-8 col-lg-3 col-xl-8">
+    <div class="row align-items-center">
+        <div class="col">
             <h1 class="h4 ms-3">{{ cl.opts.verbose_name_plural|capfirst }}</h1>
-            {% block search %}{% search_form cl %}{% endblock %}
+            
         </div>
-        <div class="d-block mb-4 mb-md-0 col-4 col-md-2">
+        
+        <div class="col-auto ms-auto">
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group">
                     {% block object-tools-items %}
-                        {% change_list_object_tools %}
+                        {% change_list_object_tools %}   
                     {% endblock %}
                 </div>
+                
             </div>
-        </div>
+        </div>     
     </div>
 </div>
 
+{% block search %}{% search_form cl %}{% endblock %}
+    
 
     <div class="row">
+        
         <div class="{% if cl.has_filters %}col-md-10{% else %}col-md-12{% endif %}">
             {% block date_hierarchy %}
                 {% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}
