@@ -7,5 +7,3 @@ def index(request):
     'segment'  : 'index',
   }
   return render(request, "pages/index.html", context)
-
-

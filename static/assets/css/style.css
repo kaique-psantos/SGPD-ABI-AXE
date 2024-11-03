@@ -2267,7 +2267,7 @@ p.text-muted {
 .pcoded-navbar .pcoded-inner-navbar li.pcoded-hasmenu .pcoded-submenu li .pcoded-submenu > li > a:before {
   left: 55px;
 }
-.pcoded-navbar .pcoded-inner-navbar li.pcoded-menu-caption {
+.pcoded-navbar .pcoded-inner-navbar li.pcoded-menu-caption  .label-menu {
   font-size: 10px;
   font-weight: 600;
   padding: 25px 20px 5px;
@@ -2333,15 +2333,7 @@ p.text-muted {
   white-space: nowrap;
   overflow: hidden;
 }
-.pcoded-navbar.navbar-collapsed .pcoded-menu-caption > label {
-  -webkit-transform: rotateY(-90deg);
-          transform: rotateY(-90deg);
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
-  opacity: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
+
 .pcoded-navbar.navbar-collapsed .pcoded-menu-caption:after {
   content: "";
   position: absolute;
@@ -2473,6 +2465,11 @@ p.text-muted {
 .pcoded-navbar .pcoded-menu-caption {
   color: #e8edf7;
 }
+
+.pcoded-navbar .pcoded-menu-caption .label-menu{
+  color: #e8edf7 !important;
+}
+
 .pcoded-navbar .pcoded-inner-navbar li.active > a, .pcoded-navbar .pcoded-inner-navbar li:focus > a, .pcoded-navbar .pcoded-inner-navbar li:hover > a {
   color: #1dc4e9;
 }
