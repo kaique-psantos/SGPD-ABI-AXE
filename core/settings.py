@@ -47,12 +47,7 @@ INSTALLED_APPS = [
     "abi",
 
     # Tooling Dynamic_DT
-    'django_dyn_dt',             # <-- NEW: Dynamic_DT
-
-    # Tooling API-GEN
-    'django_api_gen',            # Django API GENERATOR  # <-- NEW
-    'rest_framework',            # Include DRF           # <-- NEW 
-    'rest_framework.authtoken',  # Include DRF Auth      # <-- NEW     
+    'django_dyn_dt',             # <-- NEW: Dynamic_DT    
 ]
 
 MIDDLEWARE = [
