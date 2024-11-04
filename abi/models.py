@@ -134,7 +134,6 @@ class Cargo(models.Model):
 class AreaPesquisa(models.Model):
     ape_cod = models.AutoField(primary_key=True)
     ape_descricao = models.CharField(max_length=255, verbose_name = "Área de Pesquisa")
-
     def __str__(self):
         return self.ape_descricao
 
@@ -208,7 +207,7 @@ class EventoXPessoa(models.Model):
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    age_descricao = models.CharField(max_length=255, verbose_name = "Descrição")
+    age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
     eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
     
