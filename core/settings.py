@@ -47,12 +47,16 @@ INSTALLED_APPS = [
     "abi",
 
     # Tooling Dynamic_DT
+<<<<<<< HEAD
     'django_dyn_dt',             # <-- NEW: Dynamic_DT
 
     # Tooling API-GEN
     #'django_api_gen',            # Django API GENERATOR  # <-- NEW
     'rest_framework',            # Include DRF           # <-- NEW 
     'rest_framework.authtoken',  # Include DRF Auth      # <-- NEW     
+=======
+    'django_dyn_dt',             # <-- NEW: Dynamic_DT    
+>>>>>>> e76234d935b5e40209d6b97f3b2b12d324ddf05c
 ]
 
 MIDDLEWARE = [
@@ -82,6 +86,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "abi.context_processors.menu_segment",
             ],
         },
     },

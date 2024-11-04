@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.contrib import admin
 from .models import Cargo, AreaPesquisa, MembroDiretoria, Estado, Cidade, Endereco, Genero, Oficio, OrientacaoSexual, Escolaridade, Etnia, AreaArtistica, Evento, Bolsista, EventoXPessoa, Agenda
 #Estado

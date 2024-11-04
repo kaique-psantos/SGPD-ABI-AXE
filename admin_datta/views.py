@@ -143,3 +143,5 @@ def sample_page(request):
     'segment': 'sample_page',
   }
   return render(request, 'pages/sample-page.html', context)
+
+
