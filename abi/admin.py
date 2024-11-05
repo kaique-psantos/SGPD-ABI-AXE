@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.contrib import admin
-from .models import Cargo, AreaPesquisa, MembroDiretoria, Estado, Cidade, Endereco, Genero, Oficio, OrientacaoSexual, Escolaridade, Etnia, AreaArtistica, Evento, Bolsista, EventoXPessoa, Agenda
+from .models import *
 #Estado
 class EstadoAdmin(admin.ModelAdmin):
     list_display = ('est_descricao', 'est_sigla')
@@ -89,9 +89,9 @@ admin.site.register(MembroDiretoria, MembroDiretoriaAdmin)
 
 #Oficio
 class OficioAdmin(admin.ModelAdmin):
-    list_display = ('ofi_destinatario', 'ofi_assunto', 'ofi_numero', 'ofi_data', 'ofi_texto','dir_cod')
+    list_display = ('ofi_destinatario', 'ofi_assunto', 'ofi_numero', 'ofi_data','dir_cod')
     search_fields = ('ofi_assunto',) #Precisa ser analisado
-    ordering = ('ofi_assunto',)
+    ordering = ('ofi_data',)
 admin.site.register(Oficio, OficioAdmin)  
 
 #Bolsista
@@ -127,3 +127,5 @@ class AgendaAdmin(admin.ModelAdmin):
 admin.site.register(Agenda, AgendaAdmin)
 
 
+#Pessoa
+admin.site.register(Pessoa)
