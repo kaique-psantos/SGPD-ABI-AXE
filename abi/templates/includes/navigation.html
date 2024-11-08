@@ -21,7 +21,7 @@
       <li class="nav-item">
         <div class="main-search">
           <div class="input-group">
-            <input type="text" id="m-search" class="form-control" placeholder="Search . . .">
+            <input type="text" id="m-search" class="form-control" placeholder="Buscar . . .">
             <a href="javascript:" class="input-group-append search-close">
               <i class="feather icon-x input-group-text"></i>
             </a>
@@ -53,7 +53,7 @@
                 {% if request.user.is_superuser %}
                 <a href="{% url 'logout' %}" class="dud-logout" title="Sair">
                 {% else %}
-                <a href="{% url 'logout' %}" class="dud-logout" title="Logout">
+                <a href="{% url 'logout' %}" class="dud-logout" title="Sair">
                 {% endif %}
                   <i class="feather icon-log-out"></i>
                 </a>
@@ -61,13 +61,9 @@
             </div>
             <ul class="pro-body">
               <li><a href="#" class="dropdown-item"><i class="feather icon-settings"></i>
-                  Settings</a></li>
+                  Configurações</a></li>
               <li><a href="{% url 'profile' %}" class="dropdown-item"><i class="feather icon-user"></i>
-                  Profile</a></li>
-              <li><a href="#" class="dropdown-item"><i class="feather icon-mail"></i> My
-                  Messages</a></li>
-              <li><a href="#" class="dropdown-item"><i class="feather icon-lock"></i> Lock
-                  Screen</a></li>
+                  Perfil</a></li>
               {% if request.user.is_authenticated %}
               <li>
                 {% if request.user.is_superuser %}
@@ -75,7 +71,7 @@
                 {% else %}
                 <a href="{% url 'password_change' %}" class="dropdown-item">
                 {% endif %}
-                  <i class="feather icon-edit"></i>Change Password
+                  <i class="feather icon-edit"></i>Alterar Senha
                 </a>
               </li>
               {% endif %}

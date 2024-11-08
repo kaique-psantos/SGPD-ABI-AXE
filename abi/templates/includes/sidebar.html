@@ -23,17 +23,21 @@
           <label class='label-menu'>Menu</label>
         </li>
         
-        <li data-username="" class="nav-item {% if 'index' in segment %}active{% endif %}">
+        <li data-username="inicio início" class="nav-item {% if 'index' in segment %}active{% endif %}">
           {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="nav-link ">
+          {% comment %} <a href="{% url 'admin:index' %}" class="nav-link "> {% endcomment %}
+            <a href="{% url 'index' %}" class="nav-link ">
           {% else %}
           <a href="{% url 'index' %}" class="nav-link ">
           {% endif %}
-            <span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Início</span>
+            <span class="pcoded-micon">
+              <i class="feather icon-home"></i>
+            </span>
+            <span class="pcoded-mtext">Início</span>
           </a>
         </li>
-        
-        <li data-username="" class="nav-item pcoded-hasmenu {% if secao == 'agenda' %}active pcoded-trigger{% endif %}">
+
+        <li data-username="agenda, eventos, integrantes no evento" class="nav-item pcoded-hasmenu {% if secao == 'agenda' %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
               <i class="fa-regular fa-calendar"></i>
@@ -41,36 +45,36 @@
             <span class="pcoded-mtext">Agenda</span>
           </a>
           
-          <ul class="pcoded-submenu">
+          <ul class=" nav-item pcoded-submenu">
           {% if perms.abi.view_agenda %}
-            <li><a href="/admin/abi/agenda/">Agenda</a></li>
+            <li data-username="agenda"><a href="/admin/abi/agenda/">Agenda</a></li>
             {% endif %}
             {% if perms.abi.view_evento %}
-            <li><a href="/admin/abi/evento/">Eventos</a></li>
+            <li data-username="eventos"><a href="/admin/abi/evento/">Eventos</a></li>
             {% endif %}
             {% if perms.abi.view_eventoxpessoa %}
-            <li><a href="/admin/abi/eventoxpessoa/">Integrantes no Evento</a></li>
+            <li data-username="Integrantes no evento"><a href="/admin/abi/eventoxpessoa/">Integrantes no Evento</a></li>
             {% endif %}
           </ul>
         </li>
 
-        <li data-username="" class="nav-item pcoded-hasmenu {% if secao == 'documentos' %}active pcoded-trigger{% endif %}">
+        <li data-username="documentos, Oficios, Ofícios" class="nav-item pcoded-hasmenu {% if secao == 'documentos' %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
-              <i class="fa-regular fa-calendar"></i>
+              <i class="fa-regular fa-file"></i>
             </span>
             <span class="pcoded-mtext">Documentos</span>
           </a>
           
           <ul class="pcoded-submenu">
           {% if perms.abi.view_oficio %}
-            <li><a href="/admin/abi/oficio/">Ofícios</a></li>
+            <li data-username="Oficios"><a href="/admin/abi/oficio/">Ofícios</a></li>
             {% endif %}
           </ul>
   
         </li>
 
-        <li data-username="" class="nav-item pcoded-hasmenu {% if secao == 'integrantes' %}active pcoded-trigger{% endif %}">
+        <li data-username="Integrantes, Bolsistas, Diretoria" class="nav-item pcoded-hasmenu {% if secao == 'integrantes' %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
               <i class="fa-solid fa-users"></i>
@@ -80,18 +84,18 @@
           
           <ul class="pcoded-submenu">
             {% if perms.abi.view_pessoa %}
-            <li><a href="/admin/abi/pessoa/">Integrantes</a></li>
+            <li data-username="Integrantes"><a href="/admin/abi/pessoa/">Integrantes</a></li>
             {% endif %}
             {% if perms.abi.view_bolsista %}
-            <li><a href="/admin/abi/bolsista/">Bolsistas</a></li>
+            <li data-username="Bolsistas"><a href="/admin/abi/bolsista/">Bolsistas</a></li>
             {% endif %}
             {% if perms.abi.view_membrodiretoria %}
-            <li><a href="/admin/abi/membrodiretoria/">Diretoria</a></li>
+            <li data-username="Diretoria"><a href="/admin/abi/membrodiretoria/">Diretoria</a></li>
             {% endif %}
           </ul>
         </li>
 
-        <li data-username="" class="nav-item pcoded-hasmenu {% if secao == 'parametros_do_sistema'  %}active pcoded-trigger{% endif %}">
+        <li data-username="Parâmetros do Sistema, Áreas de Pesquisa, areas de Pesquisa, Áreas Artistica, Áreas Artistica, Cargos, Cidades, Estados, Escolaridades, Etnias, Gêneros, Generos, Orientações Sexuais, Orientacoes Sexuais" class="nav-item pcoded-hasmenu {% if secao == 'parametros_do_sistema'  %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
               <i class="fa-solid fa-gear"></i>
@@ -101,39 +105,39 @@
           <ul class="pcoded-submenu">
 
             {% if perms.abi.view_areapesquisa %}
-            <li><a href="/admin/abi/areapesquisa/">Áreas de Pesquisa</a></li>
+            <li data-username="Áreas de Pesquisa"><a href="/admin/abi/areapesquisa/">Áreas de Pesquisa</a></li>
             {% endif %}
             
             {% if perms.abi.view_areaartistica %}
-            <li><a href="/admin/abi/areaartistica/">Áreas Artistica</a></li>
+            <li data-username="Áreas Artistica"><a href="/admin/abi/areaartistica/">Áreas Artistica</a></li>
             {% endif %}
 
             {% if perms.abi.view_cargo %}
-            <li><a href="/admin/abi/cargo/">Cargos</a></li>
+            <li data-username="Cargos"><a href="/admin/abi/cargo/">Cargos</a></li>
             {% endif %}
 
             {% if perms.abi.view_cidade %}
-            <li><a href="/admin/abi/cidade/">Cidades</a></li>
+            <li data-username="Cidades"><a href="/admin/abi/cidade/">Cidades</a></li>
             {% endif %}
 
             {% if perms.abi.view_estado %}
-            <li><a href="/admin/abi/estado/">Estados</a></li>
+            <li data-username="Estados"><a href="/admin/abi/estado/">Estados</a></li>
             {% endif %}
 
             {% if perms.abi.view_escolaridade%}
-            <li><a href="/admin/abi/escolaridade/">Escolaridades</a></li>
+            <li data-username="Escolaridades"><a href="/admin/abi/escolaridade/">Escolaridades</a></li>
             {% endif %}
 
             {% if perms.abi.view_etnia%}
-            <li><a href="/admin/abi/etnia/">Etnias</a></li>
+            <li data-username="Etnias"><a href="/admin/abi/etnia/">Etnias</a></li>
             {% endif %}
 
             {% if perms.abi.view_genero%}
-            <li><a href="/admin/abi/genero/">Gêneros</a></li>
+            <li data-username="Gêneros"><a href="/admin/abi/genero/">Gêneros</a></li>
             {% endif %}
 
             {% if perms.abi.view_orientacaosexual%}
-            <li><a href="/admin/abi/orientacaosexual/">Orientações Sexuais</a></li>
+            <li data-username="Orientações Sexuais"><a href="/admin/abi/orientacaosexual/">Orientações Sexuais</a></li>
             {% endif %}
           </ul> 
         </li>
@@ -141,7 +145,7 @@
 
 
       {% if request.user.is_superuser %}
-      <li data-username="Autenticação" class="nav-item pcoded-hasmenu {% if 'basic_components' in parent %}active pcoded-trigger{% endif %}">
+      <li data-username="Autenticação, Autenticacao, Usuários, Usuarios, Grupos de Usuários, Grupos de Usuarios" class="nav-item pcoded-hasmenu {% if 'basic_components' in parent %}active pcoded-trigger{% endif %}">
         <a href="javascript:" class="nav-link ">
            <span class="pcoded-micon">
              <i class="feather icon-box"></i>
@@ -153,7 +157,7 @@
            <li><a href="/admin/auth/group/">Grupos de Usuário</a></li>
        </ul>
       </li>
-      <li data-username="Token" class="nav-item pcoded-hasmenu {% if 'basic_components' in parent %}active pcoded-trigger{% endif %}">
+      <li data-username="Tokens, Token de Autenticação" class="nav-item pcoded-hasmenu {% if 'basic_components' in parent %}active pcoded-trigger{% endif %}">
         <a href="javascript:" class="nav-link ">
            <span class="pcoded-micon">
              <i class="feather icon-box"></i>
