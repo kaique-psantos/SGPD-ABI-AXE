@@ -3,8 +3,9 @@ from django.db import models
 
 class Estado(models.Model):
     est_cod = models.AutoField(primary_key=True)
-    est_sigla =  models.CharField(max_length=2, verbose_name="Sigla do Estado")
     est_descricao = models.CharField(max_length=100, verbose_name="Estado")
+    est_sigla =  models.CharField(max_length=2, verbose_name="Sigla do Estado")
+    
 
     def __str__(self):
         return self.est_sigla

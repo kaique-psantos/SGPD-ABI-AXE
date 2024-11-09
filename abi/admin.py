@@ -1,8 +1,22 @@
 from django.apps import apps
 from django.contrib import admin
+from django.http import HttpRequest
+from django.http.response import HttpResponse
 from .models import *
+from django.shortcuts import get_object_or_404
+
+
+
+class CustomModelAdmin(admin.ModelAdmin):
+    def history_view(self, request, object_id, extra_context=None):
+        obj = get_object_or_404(self.model, pk=object_id)
+        extra_context = extra_context or {}
+        extra_context['object_title'] = obj  
+        
+        return super().history_view(request, object_id, extra_context=extra_context)
+
 #Estado
-class EstadoAdmin(admin.ModelAdmin):
+class EstadoAdmin(CustomModelAdmin):
     list_display = ('est_descricao', 'est_sigla')
     search_fields = ('est_descricao',)
     ordering = ('est_descricao',)
@@ -11,7 +25,7 @@ class EstadoAdmin(admin.ModelAdmin):
 admin.site.register(Estado, EstadoAdmin)
 
 #Cidade
-class CidadeAdmin(admin.ModelAdmin):
+class CidadeAdmin(CustomModelAdmin):
     list_display = ('cid_descricao', 'est_cod')
     search_fields = ('cid_descricao',)   
     ordering = ('cid_descricao',)
@@ -19,14 +33,14 @@ class CidadeAdmin(admin.ModelAdmin):
 admin.site.register(Cidade, CidadeAdmin)
 
 #Endereço
-class EnderecoAdmin(admin.ModelAdmin):
+class EnderecoAdmin(CustomModelAdmin):
     list_display = ('end_rua', 'end_bairro', 'cid_cod', 'est_cod')
     search_fields = ('cid_cod__cid_descricao',)
     ordering = ('cid_cod__cid_descricao',)
 admin.site.register(Endereco, EnderecoAdmin)
 
 #Genero
-class GeneroAdmin(admin.ModelAdmin):
+class GeneroAdmin(CustomModelAdmin):
     list_display = ('gen_descricao',)
     search_fields = ('gen_descricao',)
     ordering = ('gen_descricao',)
@@ -34,7 +48,7 @@ class GeneroAdmin(admin.ModelAdmin):
 admin.site.register(Genero, GeneroAdmin)
 
 #Orientação Sexual
-class OrientacaoSexualAdmin(admin.ModelAdmin):
+class OrientacaoSexualAdmin(CustomModelAdmin):
     list_display = ('ori_descricao',)
     search_fields = ('ori_descricao',)
     ordering = ('ori_descricao',)
@@ -42,14 +56,14 @@ class OrientacaoSexualAdmin(admin.ModelAdmin):
 admin.site.register(OrientacaoSexual, OrientacaoSexualAdmin)
 
 #Escolaridade 
-class EscolaridadeAdmin(admin.ModelAdmin):
+class EscolaridadeAdmin(CustomModelAdmin):
     list_display = ('esc_descricao',)
     search_fields = ('esc_descricao',)
     ordering = ('esc_descricao',)
 
 admin.site.register(Escolaridade, EscolaridadeAdmin)
 #Etnia
-class EtniaAdmin(admin.ModelAdmin):
+class EtniaAdmin(CustomModelAdmin):
     list_display = ('etn_descricao',)
     search_fields = ('etn_descricao',)
     ordering = ('etn_descricao',)
@@ -57,22 +71,31 @@ class EtniaAdmin(admin.ModelAdmin):
 admin.site.register(Etnia, EtniaAdmin)
 
 #AreaArtistica
-class AreaArtisticaAdmin(admin.ModelAdmin):
+class AreaArtisticaAdmin(CustomModelAdmin):
     list_display = ('are_descricao', 'are_ativo',)
     search_fields = ('are_descricao',)
     ordering = ('are_descricao',)
 
 admin.site.register(AreaArtistica, AreaArtisticaAdmin)
 #Cargo
-class CargoAdmin(admin.ModelAdmin):
+class CargoAdmin(CustomModelAdmin):
     list_display = ('car_descricao', 'car_ativo')
     search_fields = ('car_descricao',)
     ordering = ('car_descricao',)
+    
+    def history_view(self, request, object_id, extra_context=None):
+      
+        obj = get_object_or_404(Cargo, pk=object_id)
+        extra_context = extra_context or {}
+        extra_context['object_title'] = obj  
+        
+        
+        return super().history_view(request, object_id, extra_context=extra_context)
 
 admin.site.register(Cargo, CargoAdmin)
 
 #AreaPesquisa
-class AreaPesquisaAdmin(admin.ModelAdmin):
+class AreaPesquisaAdmin(CustomModelAdmin):
     list_display = ('ape_descricao',)  
     search_fields = ('ape_descricao',)
     ordering = ('ape_descricao',)
@@ -80,7 +103,7 @@ class AreaPesquisaAdmin(admin.ModelAdmin):
 admin.site.register(AreaPesquisa, AreaPesquisaAdmin)  
 
 #Diretoria
-class MembroDiretoriaAdmin(admin.ModelAdmin):
+class MembroDiretoriaAdmin(CustomModelAdmin):
     list_display = ('pes_cod', 'dir_data_inicio', 'dir_data_fim', 'car_cod', 'dir_ativo')
     search_fields = ('pes_cod__pes_nome',)
     ordering = ('pes_cod__pes_nome',)
@@ -88,14 +111,14 @@ class MembroDiretoriaAdmin(admin.ModelAdmin):
 admin.site.register(MembroDiretoria, MembroDiretoriaAdmin)  
 
 #Oficio
-class OficioAdmin(admin.ModelAdmin):
+class OficioAdmin(CustomModelAdmin):
     list_display = ('ofi_destinatario', 'ofi_assunto', 'ofi_numero', 'ofi_data','dir_cod')
     search_fields = ('ofi_assunto',) #Precisa ser analisado
     ordering = ('ofi_data',)
 admin.site.register(Oficio, OficioAdmin)  
 
 #Bolsista
-class BolsistaAdmin(admin.ModelAdmin):
+class BolsistaAdmin(CustomModelAdmin):
     list_display = ('pes_cod', 'bol_data_inicio', 'bol_data_fim', 'bol_ativo', 'ape_cod')
     search_fields = ('pes_cod__pes_nome', )
     ordering = ('bol_data_inicio',)
@@ -103,7 +126,7 @@ class BolsistaAdmin(admin.ModelAdmin):
 admin.site.register(Bolsista, BolsistaAdmin)
 
 #EventoAdmin
-class EventoAdmin(admin.ModelAdmin):
+class EventoAdmin(CustomModelAdmin):
     list_display = ('eve_nome', 'eve_data', 'cid_local', 'est_cod', 'eve_local_saida', 'eve_horario_saida', 'eve_local_chegada', 'eve_horario_chegada', 'eve_local_retorno', 'eve_horario_retorno', 'eve_data_retorno')
     search_fields = ('eve_nome',)
     ordering =  ('eve_data',)
@@ -112,7 +135,7 @@ admin.site.register(Evento, EventoAdmin)
 
 #Evento - Pessoa
 #A ser conversado
-class EventoXPessoaAdmin(admin.ModelAdmin):
+class EventoXPessoaAdmin(CustomModelAdmin):
     list_display = ('eve_cod', 'pes_cod',)
     search_fields = ('eve_cod__eve_nome', 'pes_cod__pes_nome',)
     ordering =  ('eve_cod',)
@@ -120,7 +143,7 @@ class EventoXPessoaAdmin(admin.ModelAdmin):
 admin.site.register(EventoXPessoa, EventoXPessoaAdmin)
 
 #Agenda
-class AgendaAdmin(admin.ModelAdmin):
+class AgendaAdmin(CustomModelAdmin):
     list_display = ('age_descricao', 'age_data', 'eve_cod',)
     search_fields = ('age_descricao',)
     ordering = ('age_data',)
