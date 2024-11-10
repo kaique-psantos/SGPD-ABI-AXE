@@ -92,10 +92,13 @@
             {% if perms.abi.view_membrodiretoria %}
             <li data-username="Diretoria"><a href="/admin/abi/membrodiretoria/">Diretoria</a></li>
             {% endif %}
+            {% if perms.abi.view_oficineiro %}
+            <li data-username="Oficineiro"><a href="/admin/abi/oficineiro/">Oficineiros</a></li>
+            {% endif %}
           </ul>
         </li>
 
-        <li data-username="Parâmetros do Sistema, Áreas de Pesquisa, areas de Pesquisa, Áreas Artistica, Áreas Artistica, Cargos, Cidades, Estados, Escolaridades, Etnias, Gêneros, Generos, Orientações Sexuais, Orientacoes Sexuais" class="nav-item pcoded-hasmenu {% if secao == 'parametros_do_sistema'  %}active pcoded-trigger{% endif %}">
+        <li data-username="Parâmetros do Sistema, Áreas de Pesquisa, Curso, areas de Pesquisa, Campo Artistico, Cargos, Cidades, Estados, Escolaridades, Etnias, Gêneros, Generos, Orientações Sexuais, Orientacoes Sexuais" class="nav-item pcoded-hasmenu {% if secao == 'parametros_do_sistema'  %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
               <i class="fa-solid fa-gear"></i>
@@ -109,7 +112,7 @@
             {% endif %}
             
             {% if perms.abi.view_areaartistica %}
-            <li data-username="Áreas Artistica"><a href="/admin/abi/areaartistica/">Áreas Artistica</a></li>
+            <li data-username="Campo Artistico"><a href="/admin/abi/areaartistica/">Campo Artistico</a></li>
             {% endif %}
 
             {% if perms.abi.view_cargo %}
@@ -118,6 +121,10 @@
 
             {% if perms.abi.view_cidade %}
             <li data-username="Cidades"><a href="/admin/abi/cidade/">Cidades</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_curso %}
+            <li data-username="Curso"><a href="/admin/abi/curso/">Cursos</a></li>
             {% endif %}
 
             {% if perms.abi.view_estado %}
@@ -129,7 +136,7 @@
             {% endif %}
 
             {% if perms.abi.view_etnia%}
-            <li data-username="Etnias"><a href="/admin/abi/etnia/">Etnias</a></li>
+            <li data-username="Etnias"><a href="/admin/abi/etnia/">Etnias/Raças</a></li>
             {% endif %}
 
             {% if perms.abi.view_genero%}

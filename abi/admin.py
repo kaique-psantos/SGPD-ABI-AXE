@@ -152,3 +152,16 @@ admin.site.register(Agenda, AgendaAdmin)
 
 #Pessoa
 admin.site.register(Pessoa)
+
+class OficineiroAdmin(CustomModelAdmin):
+    list_display = ('pes_cod', 'ofc_descricao', 'ofc_ativo',)
+    search_fields = ('ofc_descricao',)
+    ordering = ('pes_cod',)
+admin.site.register(Oficineiro, OficineiroAdmin)
+
+
+class CursoAdmin(CustomModelAdmin):
+    list_display = ('cur_descricao', 'cur_ativo',)
+    search_fields = ('cur_descricao',)
+    ordering = ('cur_descricao',)
+admin.site.register(Curso, CursoAdmin)
