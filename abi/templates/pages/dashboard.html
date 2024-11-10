@@ -1,0 +1,113 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+{% block extrastyle %} 
+
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+
+  <div class="row">
+    <div class="col-md-6 col-xl-4">
+      <div class="card daily-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Integrantes Ativos</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                  class="feather icon-users text-c-green f-30 m-r-10"></i>{{ integrantes_ativos }}</h3>
+            </div>
+
+            <div class="col-3 text-right">
+              <p class="m-b-0">{{ porcentagem_ativos }}%</p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme" role="progressbar" style="width: {{ porcentagem_ativos }}%;"
+              aria-valuenow="{{ porcentagem_ativos }}" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-xl-4">
+      <div class="card Monthly-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Bolsistas Ativos</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                  class="feather icon-book text-c-green f-30 m-r-10"></i>{{ bolsistas_ativos }}</h3>
+            </div>
+            <div class="col-3 text-right">
+              <p class="m-b-0"></p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme2" role="progressbar" style="width: 100%;"
+              aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 col-xl-4">
+      <div class="card yearly-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Diretoria</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                  class="feather icon-anchor text-c-green f-30 m-r-10"></i>{{ diretoria_total }}</h3>
+            </div>
+            <div class="col-3 text-right">
+              <p class="m-b-0"></p>
+            </div>
+          </div>
+          <div class="progress m-t-30" style="height: 7px;">
+            <div class="progress-bar progress-c-theme" role="progressbar" style="width: 100%;"
+              aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Distribuição de Membros por Etnia/Raça, Gênero e Orientação Sexual</h5>
+        </div>
+        <div style="height:300px" >
+          
+          <div class="row">
+            <div class="col-md-4 col-12">
+              <div id="chart-etnia" style="height: 250px;">
+                {{ etnias|safe }}
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-12">
+              <div id="chart-genero" style="height: 250px;">
+                {{ generos|safe }}
+              </div>
+            </div>
+
+            <div class="col-md-4 col-12">
+              <div id="chart-sexualidades" style="height: 250px;">
+                {{ sexualidades|safe }}
+              </div>
+            </div>
+
+          
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+
+

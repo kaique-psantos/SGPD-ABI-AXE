@@ -74,43 +74,51 @@ class Escolaridade(models.Model):
 
 class Etnia(models.Model):
     etn_cod = models.AutoField(primary_key=True)
-    etn_descricao = models.CharField(max_length=255, verbose_name = "Etnia")
+    etn_descricao = models.CharField(max_length=255, verbose_name = "Etnia/Raça")
 
     def __str__(self):
         return self.etn_descricao
 
     class Meta:
-        verbose_name = "Etnia"
-        verbose_name_plural = "Etnias"
+        verbose_name = "Etnia/Raça"
+        verbose_name_plural = "Etnias/Raças"
 
 class AreaArtistica(models.Model):
     are_cod = models.AutoField(primary_key=True)
-    are_descricao = models.CharField(max_length=255, verbose_name = "Área Artistica")
+    are_descricao = models.CharField(max_length=255, verbose_name = "Campo Artistico")
     are_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
 
     def __str__(self):
         return self.are_descricao
 
     class Meta:
-        verbose_name = "Área Artistica"
-        verbose_name_plural = "Áreas Artistica"
+        verbose_name = "Campo Artistico"
+        verbose_name_plural = "Campo Artistico"
+
+class Curso(models.Model):
+    cur_cod = models.AutoField(primary_key=True)
+    cur_descricao = models.CharField(max_length=255, verbose_name = "Curso")
+    cur_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
+    
 
 class Pessoa(models.Model):
     pes_cod = models.AutoField(primary_key=True)
     pes_nome = models.CharField(max_length=255, verbose_name = "Nome")
     pes_data_nascimento = models.DateField(verbose_name = "Data de Nascimento")
     pes_cpf = models.CharField(max_length=11, verbose_name = "CPF")
-    cid_naturalidade = models.ForeignKey(Cidade, on_delete=models.SET_NULL, null=True, related_name='naturalidade', verbose_name = "Cidade")
-    est_naturalidade = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True, related_name='naturalidade', verbose_name = "Estado")
-    end_cod = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, verbose_name = "Endereço")
-    ori_cod = models.ForeignKey(OrientacaoSexual, on_delete=models.SET_NULL, null=True, verbose_name = "Orientação Sexual")
-    gen_cod = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, verbose_name = "Gênero")
-    esc_cod = models.ForeignKey(Escolaridade, on_delete=models.SET_NULL, null=True, verbose_name = "Escolaridade")
-    etn_cod = models.ForeignKey(Etnia, on_delete=models.SET_NULL, null=True, verbose_name = "Etnia")
-    pes_data_ingresso = models.DateField(verbose_name = "Data de Ingresso")
+    cid_naturalidade = models.ForeignKey(Cidade, on_delete=models.SET_NULL, related_name='naturalidade', verbose_name = "Cidade", null=True, blank=True)
+    est_naturalidade = models.ForeignKey(Estado, on_delete=models.SET_NULL, related_name='naturalidade', verbose_name = "Estado", null=True, blank=True)
+    pes_numero = models.CharField(max_length=11, verbose_name = "Número", null=True, blank=True)
+    pes_email = models.EmailField(max_length=255, verbose_name = "E-mail", null=True, blank=True)
+    end_cod = models.ForeignKey(Endereco, on_delete=models.SET_NULL, verbose_name = "Endereço", null=True, blank=True)
+    ori_cod = models.ForeignKey(OrientacaoSexual, on_delete=models.SET_NULL, null=True, blank=True, verbose_name = "Orientação Sexual")
+    gen_cod = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True,blank=True, verbose_name = "Gênero")
+    esc_cod = models.ForeignKey(Escolaridade, on_delete=models.SET_NULL, null=True, blank=True, verbose_name = "Escolaridade")
+    etn_cod = models.ForeignKey(Etnia, on_delete=models.SET_NULL, null=True,blank=True, verbose_name = "Etnia/Raça")
+    pes_data_ingresso = models.DateField(verbose_name = "Data de Ingresso", null=True,blank=True)
     pes_data_saida = models.DateField(null=True, blank=True, verbose_name = "Data de Saída")
+    are_cod =  models.ForeignKey(AreaArtistica, on_delete=models.SET_NULL, verbose_name = "Campo Artistico",  null=True,blank=True)
     pes_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
-    are_cod =  models.ForeignKey(AreaArtistica, on_delete=models.SET_NULL, null=True, verbose_name = "Área Artistica")
 
     def __str__(self):
         return self.pes_nome
@@ -147,10 +155,16 @@ class Bolsista(models.Model):
     pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, verbose_name = "Integrante")
     bol_data_inicio = models.DateField(verbose_name = "Data de Ínicio da Bolsa")
     bol_data_fim = models.DateField(null=True, blank=True, verbose_name = "Data de Encerramento da Bolsa")
-    bol_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
     ape_cod = models.ForeignKey(AreaPesquisa, on_delete=models.SET_NULL, null=True, verbose_name = "Área de Pesquisa")
+    bol_tema = models.CharField(max_length=255, verbose_name = "Tema de Pesquisa", null=True, blank=True)
+    cur_cod = models.ForeignKey(Curso, verbose_name= "Curso", on_delete=models.SET_NULL, null=True, blank=True)
+    bol_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
 
-
+class Oficineiro(models.Model):
+    ofc_cod = models.AutoField(primary_key=True)
+    pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, verbose_name = "Integrante")
+    ofc_descricao = models.CharField(max_length=255, verbose_name = "Nome da Oficina")
+    ofc_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
 
 class MembroDiretoria(models.Model):
     dir_cod = models.AutoField(primary_key=True)
