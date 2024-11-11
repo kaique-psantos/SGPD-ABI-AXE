@@ -25,7 +25,6 @@
         
         <li data-username="inicio início" class="nav-item {% if 'index' in segment %}active{% endif %}">
           {% if request.user.is_superuser %}
-          {% comment %} <a href="{% url 'admin:index' %}" class="nav-link "> {% endcomment %}
             <a href="{% url 'index' %}" class="nav-link ">
           {% else %}
           <a href="{% url 'index' %}" class="nav-link ">
@@ -34,6 +33,15 @@
               <i class="feather icon-home"></i>
             </span>
             <span class="pcoded-mtext">Início</span>
+          </a>
+        </li>
+
+        <li data-username="dashboard" class="nav-tem {% if secao == 'dashboard' %}active pcoded-trigger{% endif %}">
+          <a href="{% url 'dashboard' %}" class="nav-link ">
+            <span class="pcoded-micon">
+              <i class="feather icon-pie-chart"></i>
+            </span>
+            <span class="pcoded-mtext">Dashboard</span>
           </a>
         </li>
 
