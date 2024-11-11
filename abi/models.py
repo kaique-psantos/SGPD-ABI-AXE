@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Estado(models.Model):
@@ -233,4 +234,3 @@ class Agenda(models.Model):
     class Meta:
         verbose_name = "Compromisso"
         verbose_name_plural = "Agenda"
-
