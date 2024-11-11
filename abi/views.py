@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.db.models import Count
+from django.utils import timezone
 from .models import *
-from .charts import *
+from .functions.charts import *
 from .functions.instagram import *
 import plotly.graph_objects as go
 import math
@@ -20,6 +20,12 @@ def dashboard(request):
     
     bolsistas_ativos = Bolsista.objects.filter(bol_ativo=True).count()
     # diretoria = MembroDiretoria.objects.filter(dir_ativo=True).count()
+    # oficineiros_ativos = Oficineiro.objects.filter(ofc_ativo=True).count()
+    # oficineiros_total = Oficineiro.objects.count()
+    # oficineiros_porcentagem = (oficineiros_ativos / oficineiros_total) * 100 if oficineiros_total > 0 else 0
+    
+    hoje = timezone.now().date()
+    proximos_eventos = Evento.objects.filter(eve_data__gte=hoje).order_by('eve_data')[:5]
     
     context = {
         'segment'  : 'dashboard',
@@ -30,6 +36,8 @@ def dashboard(request):
         'etnias': chartEtnias(),
         'sexualidades': chartSexualidades(),
         'instagram': get_instagram_followers(),
+        'membros_artistico': chartMembroCampoArtistico(),
+        'proximos_eventos': proximos_eventos,
     }
     
     return render(request, 'pages/dashboard.html', context)

@@ -13,7 +13,7 @@
 
   <div class="row">
     <div class="col-md-6 col-xl-4">
-      <div class="card daily-sales">
+      <div class="card integrantes">
         <div class="card-block">
           <h6 class="mb-4">Integrantes Ativos</h6>
           <div class="row d-flex align-items-center">
@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-md-6 col-xl-4">
-      <div class="card Monthly-sales">
+      <div class="card bolsitas">
         <div class="card-block">
           <h6 class="mb-4">Bolsistas Ativos</h6>
           <div class="row d-flex align-items-center">
@@ -56,7 +56,7 @@
     </div>
 
     <div class="col-md-12 col-xl-4">
-      <div class="card yearly-sales">
+      <div class="card instagram">
         <div class="card-block">
           <h6 class="mb-4">Seguidores no Instagram</h6>
           <div class="row d-flex align-items-center">
@@ -64,19 +64,63 @@
               <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
                   class="feather icon-instagram text-c-green f-30 m-r-10"></i>{{ instagram }}</h3>
             </div>
-            <div class="col-3 text-right">
-              <p class="m-b-0"></p>
-            </div>
           </div>
           <div class="progress m-t-30" style="height: 7px;">
             <div class="progress-bar progress-c-theme" role="progressbar" style="width: 100%;"
-              aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+    <div class="col-md-8 col-xl-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>Distribuição de Membros por Campo Artístico</h5>
+        </div>
+        <div class="card-body p-0">
+          <div id="chart-artistico" style="height: 300px; overflow: hidden;">
+            {{ membros_artistico|safe }}
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-xl-12">
+
+    <div class="col-md-12 col-xl-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Próximos Eventos</h5>
+        </div>
+        <div class="card-block px-0 py-3" style="height: 300px;" >
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <tbody>
+                {% for evento in proximos_eventos %}
+                <tr>
+                  <td>
+                    <a href="/admin/abi/evento/{{ evento.eve_cod }}/change/" class="d-block" style="color: inherit;">
+                      <h6 class="mb-1">{{ evento.eve_nome }}</h6>
+                      <p class="m-0">{{ evento.cid_local }} - {{ evento.eve_data }}</p>
+                    </a>
+                  </td>
+                </tr>                
+                {% empty %}
+                <tr>
+                  <td colspan="3">Nenhum evento próximo encontrado.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-xl-12 ">
       <div class="card">
         <div class="card-header">
           <h5>Distribuição de Membros por Etnia/Raça, Gênero e Orientação Sexual</h5>
@@ -101,11 +145,9 @@
                 {{ sexualidades|safe }}
               </div>
             </div>
-
-          
-        </div>
       </div>
     </div>
+  </div>  
 
 {% endblock content %}
 
