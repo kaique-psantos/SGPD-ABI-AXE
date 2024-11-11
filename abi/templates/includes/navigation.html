@@ -48,7 +48,7 @@
           <div class="dropdown-menu dropdown-menu-right profile-notification">
             <div class="pro-head">
               <img src="{% static 'assets/images/user/avatar-1.jpg' %}" class="img-radius" alt="User-Profile-Image">
-              <span>John Doe</span>
+              <span>{{ user.username }}</span>
               {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
                 <a href="{% url 'logout' %}" class="dud-logout" title="Sair">
