@@ -1,4 +1,4 @@
-import requests
+import requests, os
 from bs4 import BeautifulSoup
 
 def get_instagram_followers():
@@ -13,6 +13,6 @@ def get_instagram_followers():
     except Exception as e:
         print(f"Erro ao obter dados: {e}")
         return 0
-    
+
 
 
