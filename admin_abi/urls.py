@@ -1,5 +1,5 @@
 from django.urls import path
-from admin_datta import views
+from admin_abi import views
 from django.contrib.auth import views as auth_views
 
 
