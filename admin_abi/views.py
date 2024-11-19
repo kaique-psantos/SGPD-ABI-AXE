@@ -42,16 +42,6 @@ def logout_view(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-
-  if request.method == 'POST':
-    form = FormularioUpdateUser(request.POST, instance=request.user)
-    if form.is_valid():
-      form.save()
-      messages.success(request, 'Seu perfil foi atualizado com sucesso!')
-      return redirect('profile')
-  else:
-    form = FormularioUpdateUser(instance=request.user)
-
   user = request.user
   context = {
     'segment': 'profile',
@@ -59,7 +49,6 @@ def profile(request):
     'sobrenome': user.last_name,
     'email': user.email,
     'usuario': user.username,
-    'form': form,
   }
   return render(request, 'pages/profile.html', context)
 
