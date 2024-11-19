@@ -132,8 +132,13 @@ def logout_view(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
+  user = request.user
   context = {
     'segment': 'profile',
+    'nome': user.first_name,
+    'sobrenome': user.last_name,
+    'email': user.email,
+    'usuario': user.username,
   }
   return render(request, 'pages/profile.html', context)
 
