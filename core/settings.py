@@ -3,7 +3,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from str2bool import str2bool
 
-import django_dyn_dt
 
 load_dotenv()  # take environment variables from .env.
 
@@ -58,8 +57,6 @@ INSTALLED_APPS = [
 
     "abi",
 
-    # Tooling Dynamic_DT
-    'django_dyn_dt',             # <-- NEW: Dynamic_DT    
 ]
 
 MIDDLEWARE = [
@@ -77,12 +74,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = "core.urls"
 
 HOME_TEMPLATES      = os.path.join(BASE_DIR, 'abi/templates')
-TEMPLATE_DIR_DATATB = os.path.join(BASE_DIR, "django_dyn_dt/templates") 
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [HOME_TEMPLATES, TEMPLATE_DIR_DATATB],                  
+        "DIRS": [HOME_TEMPLATES],                  
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -166,11 +162,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-DYN_DB_PKG_ROOT = os.path.dirname(inspect.getfile(django_dyn_dt)) # <-- NEW: Dynamic_DT
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    #os.path.join(DYN_DB_PKG_ROOT, "templates/static"),                # <-- NEW: Dynamic_DT 
+
 )
 
 #if not DEBUG:
