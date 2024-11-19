@@ -6,23 +6,6 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
   path('', views.index, name='index'),
 
-  # Components
-  path('components/button/', views.bc_button, name='bc_button'),
-  path('components/badges/', views.bc_badges, name='bc_badges'),
-  path('components/breadcrumb-pagination/', views.bc_breadcrumb_pagination, name='bc_breadcrumb_pagination'),
-  path('components/collapse/', views.bc_collapse, name='bc_collapse'),
-  path('components/tabs/', views.bc_tabs, name='bc_tabs'),
-  path('components/typography/', views.bc_typography, name='bc_typography'),
-  path('components/feather-icon/', views.icon_feather, name='icon_feather'),
-
-  # Forms and Tables
-  path('forms/form-elements/', views.form_elements, name='form_elements'),
-  path('tables/basic-tables/', views.basic_tables, name='basic_tables'),
-
-  # Chart and Maps
-  path('charts/morris-chart/', views.morris_chart, name='morris_chart'),
-  path('maps/google-maps/', views.google_maps, name='google_maps'),
-
   # Authentication
   # Kaique: comentei as rotas de registro e resete de  senha até as regras sobre estas telas estrem definidas, para cadastro e reset de senha somente pelo super usuário pode fazer isso
 
@@ -51,5 +34,4 @@ urlpatterns = [
 
   #
   path('profile/', views.profile, name='profile'),
-  path('sample-page/', views.sample_page, name='sample_page'),
 ]
