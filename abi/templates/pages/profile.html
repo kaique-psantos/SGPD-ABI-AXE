@@ -10,49 +10,51 @@
     <div class="col-sm-8">
       <div class="card">
         <div class="card-header">
-          <h5>Edit Info</h5>
+          <h5>Informação do Usuário</h5>
         </div>
         <div class="card-block">
           <div class="row">
-            <div class="col-sm-12 mb-4">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1"
-                  aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                  else.</small>
-              </div>
-            </div>
             <div class="col-sm-6 mb-4">
               <div class="form-group">
-                <label for="fn">First Name</label>
+                <label for="fn">Nome</label>
                 <input type="email" class="form-control" id="fn" aria-describedby="emailHelp"
-                  placeholder="Enter email">
+                  value="{{ nome }}" disabled>
               </div>
             </div>
             <div class="col-sm-6 mb-4">
               <div class="form-group">
-                <label for="ln">Last Name</label>
-                <input type="email" class="form-control" id="ln" aria-describedby="emailHelp"
-                  placeholder="Enter email">
+                <label for="ln">Sobrenome</label>
+                <input type="text" class="form-control" id="ln" aria-describedby="emailHelp"
+                  value="{{ sobrenome }}" disabled>
               </div>
             </div>
-            <div class="col-sm-12 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="form-group">
-                <label for="add">Address</label>
+                <label for="add">Usuário</label>
                 <input type="email" class="form-control" id="add" aria-describedby="emailHelp"
-                  placeholder="Enter email">
-                <small id="addd" class="form-text text-muted">This is your shipments address</small>
+                  value="{{ usuario }}" disabled>
+                <!--<small id="addd" class="form-text text-muted">This is your shipments address</small>-->
               </div>
             </div>
+            <div class="col-sm-8 mb-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1"
+                  aria-describedby="emailHelp" value="{{ email }}" disabled>
+                <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                  else.</small>-->
+              </div>
+            </div>
+            <!--
             <div class="col-sm-12 mb-4">
               <div class="form-group">
-                <label for="abt">About Info</label>
+                <label for="abt">Sobre</label>
                 <textarea type="email" class="form-control" id="abt" aria-describedby="emailHelp"
                   placeholder="Bio"></textarea>
                 <small id="abf" class="form-text text-muted">We'll show this on your profile.</small>
               </div>
             </div>
+            -->
           </div>
         </div>
       </div>
@@ -66,7 +68,7 @@
                 class="img-fluid rounded-circle">
             </div>
             <div class="text-center">
-              <h4 class="font-weight-bold h6">Author Name</h4>
+              <h4 class="font-weight-bold h6">{{ nome }} {{ sobrenome }}</h4>
               <p class="font-italic text-muted">Lorem ipsum dolor.</p>
             </div>
           </div>
