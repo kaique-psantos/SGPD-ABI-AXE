@@ -33,10 +33,10 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SESSION_COOKIE_AGE = 1800  
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_SECURE = True #ATIVAR EM PRODUÇÃO
+# SESSION_COOKIE_HTTPONLY = True
 
-# Para inatividade
+# # Para inatividade
 SESSION_EXPIRE_SECONDS = 1800 
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True  
 
@@ -77,12 +77,12 @@ MIDDLEWARE = [
 ROOT_URLCONF = "core.urls"
 
 HOME_TEMPLATES      = os.path.join(BASE_DIR, 'abi/templates')
-TEMPLATE_DIR_DATATB = os.path.join(BASE_DIR, "django_dyn_dt/templates") # <-- NEW: Dynamic_DT
+TEMPLATE_DIR_DATATB = os.path.join(BASE_DIR, "django_dyn_dt/templates") 
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [HOME_TEMPLATES, TEMPLATE_DIR_DATATB],                  # <-- UPD: Dynamic_DT
+        "DIRS": [HOME_TEMPLATES, TEMPLATE_DIR_DATATB],                  
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

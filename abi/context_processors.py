@@ -9,6 +9,8 @@ def menu_segment(request):
         secao =  'agenda'
     elif '/admin/abi/oficio/' in path:
         secao = 'oficios'
+    elif '/abi/dashboard/' in path:
+        secao = 'dashboard'
     else:
         secao = ''
 
