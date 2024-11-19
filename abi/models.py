@@ -175,6 +175,9 @@ class MembroDiretoria(models.Model):
     car_cod = models.ForeignKey(Cargo, on_delete=models.SET_NULL, null=True, verbose_name = "Cargo")
     dir_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
 
+    def __str__(self):
+        return f"{self.pes_cod} - {self.car_cod}"
+
     class Meta:
         verbose_name = "Diretor(a)"
         verbose_name_plural = "Diretores"
