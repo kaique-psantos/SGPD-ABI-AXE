@@ -41,12 +41,12 @@
                         {% if add %}
                             {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
                         {% else %}
-                            {{ original|truncatewords:"18" }}
+                            {{ original|truncatechars:"20" }}
                         {% endif %}
                     </h1>
                 </div>
             
-            <div> 
+            <div>
                 <button type="button" class="btn btn-secondary ms-4" onclick="window.history.back();">Voltar</button>
             </div>
                 
