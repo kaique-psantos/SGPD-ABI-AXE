@@ -15,44 +15,45 @@
         <div class="card-block">
           <div class="row">
 
-            <div class="col-sm-6 mb-4">
-              <div class="form-group">
-                <label for="fn">Nome</label>
-                <input type="email" class="form-control" id="fn" aria-describedby="emailHelp"
-                  value="{{ nome }}" disabled>
-              </div>
-            </div>
+              <div class = 'col-sm-12 mb-4'>
+                <form method="post">
+                  {% csrf_token %}
 
-            <div class="col-sm-6 mb-4">
-              <div class="form-group">
-                <label for="ln">Sobrenome</label>
-                <input type="text" class="form-control" id="ln" aria-describedby="emailHelp"
-                  value="{{ sobrenome }}" disabled>
-              </div>
-            </div>
+                  <div class="form-row">
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ form.first_name.label_tag }}
+                          {{ form.first_name }}
+                        </div>
+                      </div>
 
-            <div class="col-sm-4 mb-4">
-              <div class="form-group">
-                <label for="add">Usuário</label>
-                <input type="email" class="form-control" id="add" aria-describedby="emailHelp" value="{{ usuario }}" disabled>
-              </div>
-            </div>
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ form.last_name.label_tag }}
+                          {{ form.last_name }}
+                        </div>
+                      </div>
+                  </div>
 
-            <div class="col-sm-8 mb-4">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ email }}" disabled>
-              </div>
-            </div>
+                  <div class="form-row">
+                    <div class="col-sm-4 mb-4">
+                      <div class="form-group">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                      </div>
+                    </div>
 
-            <div class="col-sm-8 mb-4">
-              <div class="form-group">
-                <form action="{% url 'profile_update' %}" method="get">
-                    <button type="submit" class="btn btn-warning btn-lg">Alterar Informações</button>
+                    <div class="col-sm-8 mb-4">
+                      <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-success">Salvar Alterações</button>
                 </form>
               </div>
-            </div>
-
           </div>
         </div>
       </div>

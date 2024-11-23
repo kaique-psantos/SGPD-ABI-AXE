@@ -232,7 +232,7 @@ class Agenda(models.Model):
     
     
     def __str__(self):
-        return f"{self.age_data} - {self.age_descricao}"
+        return f" {self.age_descricao}"
 
     class Meta:
         verbose_name = "Compromisso"

@@ -5,6 +5,8 @@ from django.views.generic import CreateView
 from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
+from .forms import FormularioUpdateUser
+from django.contrib import messages
 
 def index(request):
   context = {
@@ -50,5 +52,21 @@ def profile(request):
   }
   return render(request, 'pages/profile.html', context)
 
+@login_required(login_url='/accounts/login/')
+def profile_update(request):
+
+  if request.method == 'POST':
+    form = FormularioUpdateUser(request.POST, instance=request.user)
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'Seu perfil foi atualizado com sucesso!')
+      return redirect('profile')
+  else:
+    form = FormularioUpdateUser(instance=request.user)
+
+  context = {
+    'form': form,
+  }
+  return render(request, 'pages/profile_update.html', context)
 
 
