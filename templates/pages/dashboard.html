@@ -27,8 +27,8 @@
             </div>
           </div>
           <div class="progress m-t-30" style="height: 7px;">
-            <div class="progress-bar progress-c-theme" role="progressbar" style="width: {{ porcentagem_ativos }}%;"
-              aria-valuenow="{{ porcentagem_ativos }}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar progress-c-theme" role="progressbar" style="width: 100%;"
+              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
@@ -58,11 +58,14 @@
     <div class="col-md-12 col-xl-4">
       <div class="card instagram">
         <div class="card-block">
-          <h6 class="mb-4">Seguidores no Instagram</h6>
+          <h6 class="mb-4">Oficineiros</h6>
           <div class="row d-flex align-items-center">
             <div class="col-9">
               <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
-                  class="feather icon-instagram text-c-green f-30 m-r-10"></i>{{ instagram }}</h3>
+                  class="feather icon-instagram text-c-green f-30 m-r-10"></i>{{ oficineiros }}</h3>
+            </div>
+            <div class="col-3 text-right">
+              <p class="m-b-0">{{ oficineiros_porcentagem }}%</p>
             </div>
           </div>
           <div class="progress m-t-30" style="height: 7px;">

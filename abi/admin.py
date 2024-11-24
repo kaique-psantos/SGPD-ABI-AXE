@@ -114,7 +114,7 @@ admin.site.register(MembroDiretoria, MembroDiretoriaAdmin)
 class OficioAdmin(CustomModelAdmin):
     list_display = ('ofi_destinatario', 'ofi_assunto', 'ofi_numero', 'ofi_data','dir_cod')
     search_fields = ('ofi_assunto',) #Precisa ser analisado
-    ordering = ('ofi_data',)
+    ordering = ('-ofi_data',)
 admin.site.register(Oficio, OficioAdmin)  
 
 #Bolsista
@@ -144,9 +144,9 @@ admin.site.register(EventoXPessoa, EventoXPessoaAdmin)
 
 #Agenda
 class AgendaAdmin(CustomModelAdmin):
-    list_display = ('age_descricao', 'age_data', 'eve_cod',)
-    search_fields = ('age_descricao',)
-    ordering = ('age_data',)
+    list_display = ('age_titulo', 'age_data', 'eve_cod',)
+    search_fields = ('age_titulo',)
+    ordering = ('-age_data',)
 admin.site.register(Agenda, AgendaAdmin)
 
 
