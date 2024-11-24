@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import *
 from .functions.charts import *
-from .functions.instagram import *
 import plotly.graph_objects as go
 import math
 
@@ -20,25 +19,25 @@ def dashboard(request):
     
     bolsistas_ativos = Bolsista.objects.filter(bol_ativo=True).count()
     # diretoria = MembroDiretoria.objects.filter(dir_ativo=True).count()
-    # oficineiros_ativos = Oficineiro.objects.filter(ofc_ativo=True).count()
-    # oficineiros_total = Oficineiro.objects.count()
-    # oficineiros_porcentagem = (oficineiros_ativos / oficineiros_total) * 100 if oficineiros_total > 0 else 0
+    oficineiros_ativos = Oficineiro.objects.filter(ofc_ativo=True).count()
+    oficineiros_total = Oficineiro.objects.count()
+    oficineiros_porcentagem = (oficineiros_ativos / oficineiros_total) * 100 if oficineiros_total > 0 else 0
     
     hoje = timezone.now().date()
     proximos_eventos = Evento.objects.filter(eve_data__gte=hoje).order_by('eve_data')[:5]
     
     context = {
-        'segment'  : 'dashboard',
+        'segment'  : 'index',
         'integrantes_ativos': integrantes_ativos,
         'porcentagem_ativos': math.trunc(porcentagem_ativos),
         'bolsistas_ativos': bolsistas_ativos,
         'generos': chartGeneros(),
         'etnias': chartEtnias(),
         'sexualidades': chartSexualidades(),
-        'instagram': get_instagram_followers(),
         'membros_artistico': chartMembroCampoArtistico(),
         'proximos_eventos': proximos_eventos,
-         'segment': 'index',
+        'oficineiros': oficineiros_ativos,
+        'oficineiros_porcentagem': math.trunc(oficineiros_porcentagem),
     }
     
     return render(request, 'pages/dashboard.html', context)
