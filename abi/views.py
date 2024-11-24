@@ -38,6 +38,7 @@ def dashboard(request):
         'instagram': get_instagram_followers(),
         'membros_artistico': chartMembroCampoArtistico(),
         'proximos_eventos': proximos_eventos,
+         'segment': 'index',
     }
     
     return render(request, 'pages/dashboard.html', context)
