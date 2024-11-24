@@ -1,0 +1,59 @@
+{% extends 'layouts/base-auth.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <form method="post" class="card-body text-center">
+                    {% csrf_token %}
+
+                    
+
+                    <div class="mb-1">
+                        {% comment %} <i class="feather icon-unlock auth-icon"></i> {% endcomment %}
+                        <img src="{% static 'assets/images/logo/logo_10_anos.png' %}" alt="Logo" style="width: 125px">
+                    </div>
+                    <h3 class="mb-4 h3">Login</h3>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <span class="text-danger d-block my-3">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    {% for field in form %}
+                    <div class="input-group mb-3">
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div class="form-group text-left mt-4">
+                        <div class="checkbox checkbox-fill d-inline">
+                            <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+                            <label for="checkbox-fill-a1" class="cr"> Salvar Informações</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary shadow-2 mb-4">Acessar</button>
+                    
+                    {% comment %} <p class="mb-0 text-muted">Esqueceu a senha? <a href="{% url 'password_reset' %}">Redefinir</a></p>
+                    <p class="mb-3 text-muted">Não tem conta? <a href="{% url 'register' %}">Cadastre-se</a></p> {% endcomment %}
+                    
+                    <label>SGPD - SISTEMA DE GERENCIAMENTO DE PESSOAS E DOCUMENTOS</label>
+                
+                
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <label class="d-none">
+        <i class="icon feather icon-sun" id="theme-indicator"></i>
+        <input type="checkbox" id="theme-switch" class="d-none">
+    </label>
+
+{% endblock content %}
