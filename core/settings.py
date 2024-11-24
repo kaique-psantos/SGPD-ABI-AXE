@@ -4,22 +4,19 @@ from dotenv import load_dotenv
 from str2bool import str2bool
 
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv() 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 if not SECRET_KEY:
     SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))
 
-# Enable/Disable DEBUG Mode
+
 DEBUG = True
-#print(' DEBUG -> ' + str(DEBUG) ) 
 
 ALLOWED_HOSTS = ['*']
 
@@ -73,7 +70,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
-HOME_TEMPLATES      = os.path.join(BASE_DIR, 'abi/templates')
+HOME_TEMPLATES = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATES = [
     {
