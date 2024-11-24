@@ -1,10 +1,12 @@
 from django.urls import path
 from admin_abi import views
 from django.contrib.auth import views as auth_views
+from abi.views import dashboard
+
 
 
 urlpatterns = [
-  path('', views.index, name='index'),
+  path('', dashboard, name='index'),
 
   # Authentication
   # Kaique: comentei as rotas de registro e resete de  senha até as regras sobre estas telas estrem definidas, para cadastro e reset de senha somente pelo super usuário pode fazer isso
