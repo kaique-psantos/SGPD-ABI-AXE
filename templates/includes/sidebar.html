@@ -36,15 +36,7 @@
           </a>
         </li>
 
-        <li data-username="dashboard" class="nav-tem {% if secao == 'dashboard' %}active pcoded-trigger{% endif %}">
-          <a href="{% url 'dashboard' %}" class="nav-link ">
-            <span class="pcoded-micon">
-              <i class="feather icon-pie-chart"></i>
-            </span>
-            <span class="pcoded-mtext">Dashboard</span>
-          </a>
-        </li>
-
+        {% if perms.abi.view_agenda or perms.abi.view_evento or perms.abi.view_eventoxpessoa  %}
         <li data-username="agenda, eventos, integrantes no evento" class="nav-item pcoded-hasmenu {% if secao == 'agenda' %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
@@ -65,7 +57,9 @@
             {% endif %}
           </ul>
         </li>
-
+        {% endif %}
+        
+        {% if perms.abi.view_oficio %}
         <li data-username="documentos, Oficios, Ofícios" class="nav-item pcoded-hasmenu {% if secao == 'documentos' %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
@@ -79,9 +73,10 @@
             <li data-username="Oficios"><a href="/admin/abi/oficio/">Ofícios</a></li>
             {% endif %}
           </ul>
-  
         </li>
+        {% endif%}
 
+        {% if perms.abi.view_pessoa or perms.abi.view_bolsista or perms.abi.view_membrodiretoria or perms.abi.view_oficineiro %}
         <li data-username="Integrantes, Bolsistas, Diretoria" class="nav-item pcoded-hasmenu {% if secao == 'integrantes' %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
@@ -105,7 +100,9 @@
             {% endif %}
           </ul>
         </li>
+        {% endif %}
 
+        {% if perms.abi.view_areapesquisa or perms.abi.view_areaartistica or perms.abi.view_cargo or perms.abi.view_cidade or perms.abi.view_curso or perms.abi.view_estados or perms.abi.view_escolaridade or perms.abi.view_etnia or perms.abi.view_genero or perms.abi.view_orientacaosexual %}
         <li data-username="Parâmetros do Sistema, Áreas de Pesquisa, Curso, areas de Pesquisa, Campo Artistico, Cargos, Cidades, Estados, Escolaridades, Etnias, Gêneros, Generos, Orientações Sexuais, Orientacoes Sexuais" class="nav-item pcoded-hasmenu {% if secao == 'parametros_do_sistema'  %}active pcoded-trigger{% endif %}">
           <a href="javascript:" class="nav-link ">
             <span class="pcoded-micon">
@@ -127,35 +124,36 @@
             <li data-username="Cargos"><a href="/admin/abi/cargo/">Cargos</a></li>
             {% endif %}
 
-            {% if perms.abi.view_cidade %}
-            <li data-username="Cidades"><a href="/admin/abi/cidade/">Cidades</a></li>
-            {% endif %}
-
             {% if perms.abi.view_curso %}
             <li data-username="Curso"><a href="/admin/abi/curso/">Cursos</a></li>
             {% endif %}
+
+            {% if perms.abi.view_cidade %}
+            <li data-username="Cidades"><a href="/admin/abi/cidade/">Cidades</a></li>
+            {% endif %}           
 
             {% if perms.abi.view_estado %}
             <li data-username="Estados"><a href="/admin/abi/estado/">Estados</a></li>
             {% endif %}
 
-            {% if perms.abi.view_escolaridade%}
+            {% if perms.abi.view_escolaridade %}
             <li data-username="Escolaridades"><a href="/admin/abi/escolaridade/">Escolaridades</a></li>
             {% endif %}
 
-            {% if perms.abi.view_etnia%}
+            {% if perms.abi.view_etnia %}
             <li data-username="Etnias"><a href="/admin/abi/etnia/">Etnias/Raças</a></li>
             {% endif %}
 
-            {% if perms.abi.view_genero%}
+            {% if perms.abi.view_genero %}
             <li data-username="Gêneros"><a href="/admin/abi/genero/">Gêneros</a></li>
             {% endif %}
 
-            {% if perms.abi.view_orientacaosexual%}
+            {% if perms.abi.view_orientacaosexual %}
             <li data-username="Orientações Sexuais"><a href="/admin/abi/orientacaosexual/">Orientações Sexuais</a></li>
             {% endif %}
           </ul> 
         </li>
+        {% endif %}
        
 
 
@@ -172,18 +170,6 @@
            <li><a href="/admin/auth/group/">Grupos de Usuário</a></li>
        </ul>
       </li>
-      <li data-username="Tokens, Token de Autenticação" class="nav-item pcoded-hasmenu {% if 'basic_components' in parent %}active pcoded-trigger{% endif %}">
-        <a href="javascript:" class="nav-link ">
-           <span class="pcoded-micon">
-             <i class="feather icon-box"></i>
-           </span>
-           <span class="pcoded-mtext">Token de Autenticação</span>
-         </a>
-       <ul class="pcoded-submenu">
-           <li><a href="/admin/authtoken/tokenproxy/">Tokens</a></li>
-       </ul>
-      </li>
-
       {% endif%}
       
       </ul>

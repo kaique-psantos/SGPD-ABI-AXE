@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import date
 
 class Estado(models.Model):
     est_cod = models.AutoField(primary_key=True)
@@ -186,10 +186,24 @@ class Oficio(models.Model):
     ofi_cod = models.AutoField(primary_key=True)
     ofi_destinatario = models.CharField(max_length=255, verbose_name = "Destinatário")
     ofi_assunto = models.CharField(max_length=255, verbose_name = "Assunto")
-    ofi_numero = models.CharField(max_length=20, verbose_name = "Número do Ofício")
+    ofi_numero = models.CharField(max_length=20, verbose_name = "Número do Ofício", unique=True, editable=True, null=True, blank=True)
     ofi_data = models.DateField(verbose_name = "Data do Ofício")
     ofi_texto = models.TextField(verbose_name = "Texto")
     dir_cod = models.ForeignKey(MembroDiretoria, on_delete=models.SET_NULL, null=True, verbose_name = "Diretor(a) Responsável pela Assinatura")
+
+    def save(self, *args, **kwargs):
+        if not self.ofi_numero:  
+            ano_atual = self.ofi_data.year  
+            ultimo_oficio = Oficio.objects.filter(ofi_numero__endswith=f'/{ano_atual}').order_by('-ofi_cod').first()
+            if ultimo_oficio:
+                ultimo_numero = int(ultimo_oficio.ofi_numero.split('/')[0])
+                proximo_numero = ultimo_numero + 1
+            else:
+                proximo_numero = 1
+            self.ofi_numero = f'{proximo_numero:02}/{ano_atual}'
+        super().save(*args, **kwargs)
+
+
 
     def __str__(self):
         return f"{self.ofi_numero} - {self.ofi_assunto}"
@@ -226,13 +240,14 @@ class EventoXPessoa(models.Model):
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")
+    age_titulo = models.CharField(max_length=100, verbose_name = "Título", null=False, blank=False, default="Vazio")
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
     eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
+    age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")
     
     
     def __str__(self):
-        return f" {self.age_descricao}"
+        return f" {self.age_titulo}"
 
     class Meta:
         verbose_name = "Compromisso"
