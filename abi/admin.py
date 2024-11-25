@@ -5,8 +5,6 @@ from django.http.response import HttpResponse
 from .models import *
 from django.shortcuts import get_object_or_404
 
-
-
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
         obj = get_object_or_404(self.model, pk=object_id)

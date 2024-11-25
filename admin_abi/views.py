@@ -54,7 +54,7 @@ def profile(request):
 
 @login_required(login_url='/accounts/login/')
 def profile_update(request):
-
+  user = request.user
   if request.method == 'POST':
     form = FormularioUpdateUser(request.POST, instance=request.user)
     if form.is_valid():
@@ -66,6 +66,8 @@ def profile_update(request):
 
   context = {
     'form': form,
+    'nome': user.first_name,
+    'sobrenome': user.last_name,
   }
   return render(request, 'pages/profile_update.html', context)
 
