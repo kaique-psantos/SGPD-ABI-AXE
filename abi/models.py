@@ -100,7 +100,6 @@ class Curso(models.Model):
     cur_cod = models.AutoField(primary_key=True)
     cur_descricao = models.CharField(max_length=255, verbose_name = "Curso")
     cur_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
-    
 
 class Pessoa(models.Model):
     pes_cod = models.AutoField(primary_key=True)
@@ -139,7 +138,6 @@ class Cargo(models.Model):
     class Meta:
         verbose_name = "Cargo"
         verbose_name_plural = "Cargos"
-
 
 class AreaPesquisa(models.Model):
     ape_cod = models.AutoField(primary_key=True)
