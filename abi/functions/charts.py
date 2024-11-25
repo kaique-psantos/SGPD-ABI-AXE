@@ -35,7 +35,7 @@ def chartGeneros():
 
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.3, marker=dict(colors=chart_colors))])
     fig.update_layout(
-        title_text='Gênero',
+        title_text='',
         width=300, 
         height=300,
         showlegend=False, 
@@ -56,7 +56,7 @@ def chartEtnias():
 
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.3, marker=dict(colors=chart_colors))])
     fig.update_layout(
-        title_text='Etnia/Raça',
+        title_text='',
         width=300, 
         height=300,
         showlegend=False, 
@@ -77,7 +77,7 @@ def chartSexualidades():
 
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.3, marker=dict(colors=chart_colors))])
     fig.update_layout(
-        title_text='Orientação Sexual',
+        title_text='',
         width=300, 
         height=300,
         showlegend=False, 

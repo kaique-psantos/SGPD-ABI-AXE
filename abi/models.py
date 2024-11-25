@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
-from datetime import date
+from django.core.exceptions import ValidationError
+from datetime import datetime
+
 
 class Estado(models.Model):
     est_cod = models.AutoField(primary_key=True)
@@ -224,7 +225,17 @@ class Evento(models.Model):
     eve_horario_chegada = models.TimeField(null=True, blank=True, verbose_name = "Horário de Chegada")
     eve_local_retorno = models.CharField(max_length=255, null=True, blank=True, verbose_name = "Local de Retorno")
     eve_horario_retorno = models.TimeField(null=True, blank=True, verbose_name = "Horário de Retorno")
-    eve_data_retorno = models.DateField(null=True, verbose_name = "Data do Retorno")
+    eve_data_retorno = models.DateField(null=True, blank=True, verbose_name = "Data do Retorno")
+
+    def clean(self):
+        if self.eve_data < (datetime.strptime('01/01/2023', '%d/%m/%Y').date()):
+            raise ValidationError({'eve_data': 'A data do evento não pode ser muito antiga.'})
+        if self.eve_data_retorno < self.eve_data:
+            raise ValidationError({'eve_data_retorno': 'A data de retorno não pode ser menor que a data do evento.'})
+        if self.eve_data == self.eve_data_retorno:
+            if self.eve_horario_retorno < self.eve_horario_saida:
+                raise ValidationError({'eve_horario_retorno': 'A hora de retorno não pode ser menor que a hora de saída no mesmo dia.'})
+        super().clean()
 
     def __str__(self):
         return self.eve_nome
@@ -240,7 +251,7 @@ class EventoXPessoa(models.Model):
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    age_titulo = models.CharField(max_length=100, verbose_name = "Título", null=False, blank=False, default="Vazio")
+    age_titulo = models.CharField(max_length=100, verbose_name = "Título", null=False, blank=False)
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
     eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
     age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")

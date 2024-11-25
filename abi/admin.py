@@ -1,7 +1,5 @@
 from django.apps import apps
 from django.contrib import admin
-from django.http import HttpRequest
-from django.http.response import HttpResponse
 from .models import *
 from django.shortcuts import get_object_or_404
 
@@ -127,9 +125,11 @@ admin.site.register(Bolsista, BolsistaAdmin)
 
 #EventoAdmin
 class EventoAdmin(CustomModelAdmin):
-    list_display = ('eve_nome', 'eve_data', 'cid_local', 'est_cod', 'eve_local_saida', 'eve_horario_saida', 'eve_local_chegada', 'eve_horario_chegada', 'eve_local_retorno', 'eve_horario_retorno', 'eve_data_retorno')
+    list_display = ('eve_nome', 'eve_data', 'cid_local', 'est_cod')
     search_fields = ('eve_nome',)
-    ordering =  ('eve_data',)
+    ordering =  ('-eve_data',)
+    
+
     
 admin.site.register(Evento, EventoAdmin)
 
@@ -143,8 +143,8 @@ class EventoXPessoaAdmin(CustomModelAdmin):
 admin.site.register(EventoXPessoa, EventoXPessoaAdmin)
 
 #Agenda
-class AgendaAdmin(CustomModelAdmin):
-    list_display = ('age_titulo', 'age_data', 'eve_cod',)
+class AgendaAdmin(admin.ModelAdmin):
+    list_display = ('age_titulo', 'age_data', 'eve_cod')
     search_fields = ('age_titulo',)
     ordering = ('-age_data',)
 admin.site.register(Agenda, AgendaAdmin)

@@ -61,8 +61,9 @@
           <h6 class="mb-4">Oficineiros</h6>
           <div class="row d-flex align-items-center">
             <div class="col-9">
-              <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
-                  class="feather icon-instagram text-c-green f-30 m-r-10"></i>{{ oficineiros }}</h3>
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0">
+                <i class="fa-solid fa-chalkboard-user text-c-green" style="font-size: 30px; margin-right: 10px;"></i>
+                {{ oficineiros }}</h3>   
             </div>
             <div class="col-3 text-right">
               <p class="m-b-0">{{ oficineiros_porcentagem }}%</p>
@@ -123,7 +124,7 @@
     </div>
 
 
-    <div class="col-xl-12 ">
+    {% comment %} <div class="col-xl-12 ">
       <div class="card">
         <div class="card-header">
           <h5>Distribuição de Membros por Etnia/Raça, Gênero e Orientação Sexual</h5>
@@ -150,7 +151,61 @@
             </div>
       </div>
     </div>
-  </div>  
+  </div>   {% endcomment %}
+
+  <div class="col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Membros por Etnia/Raça</h5>
+      </div>
+      <div style="height:300px" >
+        
+        <div class="row">
+          <div class="col-md-4 col-12">
+            <div id="chart-etnia" style="height: 250px;">
+              {{ etnias|safe }}
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>  
+
+<div class="col-md-6 col-xl-4">
+  <div class="card">
+    <div class="card-header">
+      <h5>Membros por Genêro</h5>
+    </div>
+    <div style="height:300px" >
+      
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <div id="chart-etnia" style="height: 250px;">
+            {{ generos|safe }}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="col-md-6 col-xl-4">
+  <div class="card">
+    <div class="card-header">
+      <h5>Membros por Sexualidade</h5>
+    </div>
+    <div style="height:300px" >
+      
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <div id="chart-etnia" style="height: 250px;">
+            {{ sexualidades|safe }}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
 
 {% endblock content %}
 
