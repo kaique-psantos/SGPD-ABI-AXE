@@ -45,13 +45,13 @@
                         {% endif %}
                     </h1>
                 </div>
-            
+
             <div>
                 <button type="button" class="btn btn-secondary ms-4" onclick="window.history.back();">Voltar</button>
             </div>
-                
+
         </div>
-            
+
             <div>
                 {% block object-tools %}
                     {% if change %}{% if not is_popup %}
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-12 mb-4">
             <div class="card">
@@ -101,11 +101,37 @@
                                         data-model-name="{{ opts.model_name }}"
                                         {% endif %}>
                                 </script>
-                                
+
                             {% endblock %}
 
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/inputmask.min.js"></script>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    <!--Agenda-->
+                                    Inputmask("99/99/9999").mask("input[name='age_data']");
+
+                                    <!--Evento-->
+                                    Inputmask("99/99/9999").mask("input[name='eve_data_retorno']");
+                                    Inputmask("99:99:99").mask("input[name='eve_horario_chegada']");
+                                    Inputmask("99:99:99").mask("input[name='eve_horario_saida']");
+                                    Inputmask("99:99:99").mask("input[name='eve_horario_retorno']");
+                                    Inputmask("99/99/9999").mask("input[name='eve_data']");
+
+                                    <!--Oficio-->
+                                    Inputmask("99/99/9999").mask("input[name='ofi_data']");
+
+                                    <!--Bolsista-->
+                                    Inputmask("99/99/9999").mask("input[name='bol_data_inicio']");
+                                    Inputmask("99/99/9999").mask("input[name='bol_data_fim']");
+
+                                    <!--Diretoria-->
+                                    Inputmask("99/99/9999").mask("input[name='dir_data_inicio']");
+                                    Inputmask("99/99/9999").mask("input[name='dir_data_fim']");
+                                });
+                            </script>
+
                             {% prepopulated_fields_js %}
-                            
+
                         </div>
                     </form>
                 </div>
