@@ -238,7 +238,7 @@ class EventoXPessoa(models.Model):
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    age_titulo = models.CharField(max_length=100, verbose_name = "Título", null=False, blank=False, default="Vazio")
+    age_titulo = models.CharField(max_length=100, verbose_name = "Título", null=False, blank=False)
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
     eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
     age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")
