@@ -41,3 +41,9 @@ def dashboard(request):
     }
     
     return render(request, 'pages/dashboard.html', context)
+  
+def page_not_found(request, exception):
+    return render(request, 'pages/404.html')
+  
+def error_403(request, exception):
+    return render(request, 'pages/403.html')

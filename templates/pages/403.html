@@ -1,0 +1,30 @@
+{% extends 'layouts/base-auth.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="h4">Erro 403</h1>
+                    <h1 class="display-4">Permissão Necessária</h1>
+                    <p class="lead">Desculpe, você não tem permissão para acessar está página</p>
+                    
+
+                    <div class="mt-4">
+                        <a href="{% url 'index' %}" class="btn btn-primary shadow-2 mb-4" style="color: white">Voltar à Página Inicial</a>
+                    </div>
+                    <img src="{% static 'assets/images/logo/logo_10_anos.png' %}" alt="Logo" style="width: 125px">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
