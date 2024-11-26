@@ -60,8 +60,6 @@ class FormatCPF(Func):
   
   
 def imprimir_oficio(request, ofi_cod):
-    jasper_file = os.path.join(settings.MEDIA_ROOT, 'reports', 'Oficio.jasper')
-    output_file = os.path.join(settings.MEDIA_ROOT, 'reports/temp', f"oficio_{ofi_cod}.pdf")
     
     oficio = Oficio.objects.filter(ofi_cod=ofi_cod).select_related('dir_cod__pes_cod', 'dir_cod__car_cod').annotate(
             pes_nome=F('dir_cod__pes_cod__pes_nome'),
@@ -78,6 +76,9 @@ def imprimir_oficio(request, ofi_cod):
             'cpf'
         ).first()
 
+    jasper_file = os.path.join(settings.MEDIA_ROOT, 'reports', 'Oficio.jasper')
+    output_file = os.path.join(settings.MEDIA_ROOT, 'reports/temp', f"oficio_{oficio['ofi_assunto']}.pdf")
+    
     ofi_data = oficio['ofi_data']
     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
     data_formatada = ofi_data.strftime('%d de %B de %Y')
@@ -109,6 +110,6 @@ def imprimir_oficio(request, ofi_cod):
 
     with open(output_file, 'rb') as pdf_file:
         response = HttpResponse(pdf_file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="oficio_{ofi_cod}.pdf"'
+        response['Content-Disposition'] = f'attachment; filename="oficio_{oficio['ofi_assunto']}.pdf"'
         return response
 
