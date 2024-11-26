@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from abi.models import Pessoa, UsuarioPessoa
+from django.forms.models import inlineformset_factory
+
 
 class RegistrationForm(UserCreationForm):
   password1 = forms.CharField(
@@ -66,20 +68,24 @@ class UserPasswordChangeForm(PasswordChangeForm):
 class FormularioUpdateUser(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username']
+        fields = ['username']
 
         labels = {
-            'first_name': 'Nome',
-            'last_name': 'Sobrenome',
             'username': 'Usuário',
-            'email': 'Email',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+
+class FormularioUpdatePessoa(forms.ModelForm):
+    class Meta:
+        model = Pessoa
+        fields = ['pes_nome', 'pes_cpf', 'pes_email']
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'pes_nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'pes_cpf': forms.DateInput(attrs={'class': 'form-control'}),
+            'pes_email': forms.DateInput(attrs={'class': 'form-control'}),
         }
 
 class FormularioCriarUser(UserCreationForm):
@@ -99,5 +105,12 @@ class FormularioCriarUser(UserCreationForm):
         pessoa = self.cleaned_data.get('pessoa')
 
         UsuarioPessoa.objects.create(user=user, pes_cod=pessoa)
+
+        if not pessoa:
+            user.first_name = user.username
+            user.save()
+        else:
+            user.first_name = pessoa.pes_nome
+            user.save()
 
         return user
