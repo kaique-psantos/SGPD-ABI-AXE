@@ -250,3 +250,10 @@ class Agenda(models.Model):
     class Meta:
         verbose_name = "Compromisso"
         verbose_name_plural = "Agenda"
+
+class UsuarioPessoa(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name="pessoa", db_column="pes_cod", null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
