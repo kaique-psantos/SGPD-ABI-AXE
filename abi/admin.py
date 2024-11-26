@@ -1,9 +1,9 @@
 from django.apps import apps
 from django.contrib import admin
-from django.http import HttpRequest
-from django.http.response import HttpResponse
 from .models import *
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from django.utils.html import format_html
 
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
@@ -110,9 +110,15 @@ admin.site.register(MembroDiretoria, MembroDiretoriaAdmin)
 
 #Oficio
 class OficioAdmin(CustomModelAdmin):
-    list_display = ('ofi_destinatario', 'ofi_assunto', 'ofi_numero', 'ofi_data','dir_cod')
+    list_display = ('ofi_numero', 'ofi_assunto', 'ofi_destinatario', 'ofi_data', 'dir_cod', 'botao_impressao')
     search_fields = ('ofi_assunto',) #Precisa ser analisado
     ordering = ('-ofi_data',)
+    
+    def botao_impressao(self, obj):
+        url = reverse('oficio_imprimir', args=[obj.ofi_cod])
+        return format_html('<a class="btn" href="{}"><i class="fa-solid fa-print"></i></a>', url)
+
+    botao_impressao.short_description = 'Impressão'
 admin.site.register(Oficio, OficioAdmin)  
 
 #Bolsista
@@ -125,9 +131,11 @@ admin.site.register(Bolsista, BolsistaAdmin)
 
 #EventoAdmin
 class EventoAdmin(CustomModelAdmin):
-    list_display = ('eve_nome', 'eve_data', 'cid_local', 'est_cod', 'eve_local_saida', 'eve_horario_saida', 'eve_local_chegada', 'eve_horario_chegada', 'eve_local_retorno', 'eve_horario_retorno', 'eve_data_retorno')
+    list_display = ('eve_nome', 'eve_data', 'cid_local', 'est_cod')
     search_fields = ('eve_nome',)
-    ordering =  ('eve_data',)
+    ordering =  ('-eve_data',)
+    
+
     
 admin.site.register(Evento, EventoAdmin)
 
@@ -141,8 +149,8 @@ class EventoXPessoaAdmin(CustomModelAdmin):
 admin.site.register(EventoXPessoa, EventoXPessoaAdmin)
 
 #Agenda
-class AgendaAdmin(CustomModelAdmin):
-    list_display = ('age_titulo', 'age_data', 'eve_cod',)
+class AgendaAdmin(admin.ModelAdmin):
+    list_display = ('age_titulo', 'age_data', 'eve_cod')
     search_fields = ('age_titulo',)
     ordering = ('-age_data',)
 admin.site.register(Agenda, AgendaAdmin)

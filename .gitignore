@@ -13,6 +13,6 @@ env__
 .venv
 env.sample
 anotacao.txt
-
-
+/media/reports/temp/*
+media/reports/temp/*
 
