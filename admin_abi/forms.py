@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
+from abi.models import Pessoa, UsuarioPessoa
 
 class RegistrationForm(UserCreationForm):
   password1 = forms.CharField(
@@ -80,3 +81,23 @@ class FormularioUpdateUser(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+class FormularioCriarUser(UserCreationForm):
+    pessoa = forms.ModelChoiceField(
+        queryset=Pessoa.objects.all(),
+        required=False,
+        label="Pessoa",
+        help_text="Selecione uma Pessoa existente para vincular a este usuário."
+    )
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']  # Campos padrão
+
+    def save(self, commit=True):
+        user = super().save()
+        pessoa = self.cleaned_data.get('pessoa')
+
+        UsuarioPessoa.objects.create(user=user, pes_cod=pessoa)
+
+        return user
