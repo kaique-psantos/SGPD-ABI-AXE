@@ -22,34 +22,36 @@
                   <div class="form-row">
                       <div class="col-sm-6 mb-4">
                         <div class="form-group">
-                          {{ form.first_name.label_tag }}
-                          {{ form.first_name }}
+                          {{ formUser.username.label_tag }}
+                          {{ formUser.username }}
+                        </div>
+                      </div>
+
+                    {% if existe %}
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ formPessoa.pes_nome.label_tag }}
+                          {{ formPessoa.pes_nome }}
                         </div>
                       </div>
 
                       <div class="col-sm-6 mb-4">
                         <div class="form-group">
-                          {{ form.last_name.label_tag }}
-                          {{ form.last_name }}
+                          {{ formPessoa.pes_cpf.label_tag }}
+                          {{ formPessoa.pes_cpf }}
                         </div>
                       </div>
+
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ formPessoa.pes_email.label_tag }}
+                          {{ formPessoa.pes_email }}
+                        </div>
+                      </div>
+                    {% endif %}
                   </div>
 
-                  <div class="form-row">
-                    <div class="col-sm-4 mb-4">
-                      <div class="form-group">
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
-                      </div>
-                    </div>
 
-                    <div class="col-sm-8 mb-4">
-                      <div class="form-group">
-                        {{ form.email.label_tag }}
-                        {{ form.email }}
-                      </div>
-                    </div>
-                  </div>
 
                   <button type="submit" class="btn btn-success">Salvar Alterações</button>
                 </form>
@@ -68,12 +70,17 @@
                 class="img-fluid rounded-circle">
             </div>
             <div class="text-center">
-              <h4 class="font-weight-bold h6">{{ nome }} {{ sobrenome }}</h4>
+              {% if existe %}
+              <h4 class="font-weight-bold h4">{{ nome }}</h4>
+              {% else %}
+              <h4 class="font-weight-bold h4">{{ usuario }}</h4>
+              {% endif %}
             </div>
           </div>
 
           <div class="small font-weight-light mt-4 text-center text-muted">
-            <p>Por segurança o sua conta User não tem vínculo com o seu registro Integrante, caso queira atualizar alguma informação referente a Integrante, por favor contactar o administrador do sistema.</p>
+            <p>{{ cargo }}</p>
+            <p>{{ dt_ingresso }}</p>
           </div>
         </div>
       </div>
