@@ -4,6 +4,13 @@ from .models import *
 from .functions.charts import *
 import plotly.graph_objects as go
 import math
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from pyreportjasper import PyReportJasper
+from django.db.models import F, Value, Func
+from datetime import datetime
+import locale
 
 def index(request):
 
@@ -41,3 +48,67 @@ def dashboard(request):
     }
     
     return render(request, 'pages/dashboard.html', context)
+  
+def page_not_found(request, exception):
+    return render(request, 'pages/404.html')
+  
+def error_403(request, exception):
+    return render(request, 'pages/403.html')
+  
+class FormatCPF(Func):
+    function = 'formatar_cpf'
+  
+  
+def imprimir_oficio(request, ofi_cod):
+    jasper_file = os.path.join(settings.MEDIA_ROOT, 'reports', 'Oficio.jasper')
+    output_file = os.path.join(settings.MEDIA_ROOT, 'reports/temp', f"oficio_{ofi_cod}.pdf")
+    
+    oficio = Oficio.objects.filter(ofi_cod=ofi_cod).select_related('dir_cod__pes_cod', 'dir_cod__car_cod').annotate(
+            pes_nome=F('dir_cod__pes_cod__pes_nome'),
+            car_descricao=F('dir_cod__car_cod__car_descricao'),
+            cpf=F('dir_cod__pes_cod__pes_cpf')
+        ).values(
+            'ofi_destinatario',
+            'ofi_assunto',
+            'ofi_numero',
+            'ofi_data',
+            'ofi_texto',
+            'pes_nome',
+            'car_descricao',
+            'cpf'
+        ).first()
+
+    ofi_data = oficio['ofi_data']
+    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+    data_formatada = ofi_data.strftime('%d de %B de %Y')
+    teste =  "Delmiro Gouveia - AL, "+ data_formatada
+    
+
+    parametros = {
+        'ofi_numero': oficio['ofi_numero'],
+        'ofi_data':  teste,
+        'ofi_destinatario': oficio['ofi_destinatario'],
+        'ofi_texto': oficio['ofi_texto'],
+        'nome': oficio['pes_nome'],
+        'cargo': oficio['car_descricao'],
+        'cpf': oficio['cpf'],
+        'ofi_assunto': oficio['ofi_assunto'],
+    }
+
+    jasper = PyReportJasper()
+
+    jasper.config(
+        input_file=jasper_file,
+        output_file=output_file,
+        output_formats=["pdf"],
+        locale='pt_BR',
+        parameters=parametros,
+    )
+
+    jasper.process_report()
+
+    with open(output_file, 'rb') as pdf_file:
+        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="oficio_{ofi_cod}.pdf"'
+        return response
+
