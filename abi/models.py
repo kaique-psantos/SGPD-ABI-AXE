@@ -101,7 +101,6 @@ class Curso(models.Model):
     cur_cod = models.AutoField(primary_key=True)
     cur_descricao = models.CharField(max_length=255, verbose_name = "Curso")
     cur_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
-    
 
 class Pessoa(models.Model):
     pes_cod = models.AutoField(primary_key=True)
@@ -140,7 +139,6 @@ class Cargo(models.Model):
     class Meta:
         verbose_name = "Cargo"
         verbose_name_plural = "Cargos"
-
 
 class AreaPesquisa(models.Model):
     ape_cod = models.AutoField(primary_key=True)
@@ -263,3 +261,10 @@ class Agenda(models.Model):
     class Meta:
         verbose_name = "Compromisso"
         verbose_name_plural = "Agenda"
+
+class UsuarioPessoa(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name="pessoa", db_column="pes_cod", null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
