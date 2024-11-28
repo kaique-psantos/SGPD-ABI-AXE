@@ -1,13 +1,43 @@
 <!DOCTYPE html>
-{% load i18n static admin_datta %}
+{% load i18n static admin_abi %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 {% get_direction as direction %}
 {% get_admin_setting as admin_setting %}
 <html lang="pt-br">
 
 <head>
-  {% include 'includes/head.html' %}
-  {% block extrastyle %}{% endblock extrastyle %}
-  {% block extrahead %}{% endblock extrahead %}
+    <title>SGPD - {% block title %}Abí Axé Egbé{% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'assets/images/logo_abi.ico' %}" type="image/x-icon">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="{% static 'assets/plugins/animation/css/animate.min.css' %}">
+    
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    
+    <!-- Dark Mode CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/dark.css' %}">
+    
+    <!-- Models CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/models.css' %}">
+    
+    {% block extrastyle %}{% endblock extrastyle %}
+    {% block extrahead %}{% endblock extrahead %}
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+
 </head>
 <body>
 
@@ -23,20 +53,17 @@
     {% include 'includes/navigation.html' %}
   {% endblock header %}
 
-  <!-- [ Main Content ] start -->
   <div class="pcoded-main-container">
     <div class="pcoded-wrapper">
       <div class="pcoded-content">
         <div class="pcoded-inner-content">
-          <!-- [ breadcrumb ] start -->
           {% block breadcrumbs %}
             {% include 'includes/breadcrumb.html' %}
           {% endblock breadcrumbs %}
-          <!-- [ breadcrumb ] end -->
+          
           <div class="main-body">
-            <div class="page-wrapper">
-              
-              {% block content %}  {% endblock content %}
+            <div class="page-wrapper"/>
+                {% block content %}{% endblock content %}
             </div>
           </div>
         </div>

@@ -29,6 +29,10 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://localhost:5085', 'http:
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
+# Configurações de mídia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -47,16 +51,7 @@ INSTALLED_APPS = [
     "abi",
 
     # Tooling Dynamic_DT
-<<<<<<< HEAD
-    'django_dyn_dt',             # <-- NEW: Dynamic_DT
-
-    # Tooling API-GEN
-    #'django_api_gen',            # Django API GENERATOR  # <-- NEW
-    'rest_framework',            # Include DRF           # <-- NEW 
-    'rest_framework.authtoken',  # Include DRF Auth      # <-- NEW     
-=======
     'django_dyn_dt',             # <-- NEW: Dynamic_DT    
->>>>>>> e76234d935b5e40209d6b97f3b2b12d324ddf05c
 ]
 
 MIDDLEWARE = [
@@ -179,15 +174,15 @@ DYNAMIC_DATATB = {
 ########################################
 
 # ### API-GENERATOR Settings ###
-API_GENERATOR = {
-    # SLUG -> Import_PATH 
-    'product'  : "abi.models.Product",
-}
+# API_GENERATOR = {
+#     # SLUG -> Import_PATH 
+#     'product'  : "abi.models.Product",
+# }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.TokenAuthentication',
+#     ],
+# }
 ########################################

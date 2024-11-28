@@ -88,6 +88,14 @@
             {% if perms.abi.view_membrodiretoria %}
             <li><a href="/admin/abi/membrodiretoria/">Diretoria</a></li>
             {% endif %}
+            <li data-username="" class="nav-item">
+              <a href="{% url 'pessoa_view' %}" class="nav-link ">
+                <span class="pcoded-micon">
+                  <i class="fa-solid fa-users"></i>
+                </span>
+                <span class="pcoded-mtext">Pessoa</span>
+              </a>
+            </li>
           </ul>
         </li>
 

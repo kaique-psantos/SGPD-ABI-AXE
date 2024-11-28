@@ -9,6 +9,13 @@ class Estado(models.Model):
     def __str__(self):
         return self.est_sigla
 
+class Pais(models.Model):
+    pai_cod = models.AutoField(primary_key=True)
+    pai_sigla =  models.CharField(max_length=2, verbose_name="Sigla do País")
+    pai_descricao = models.CharField(max_length=100, verbose_name="País")
+
+    def __str__(self):
+        return self.pai_sigla
 class Cidade(models.Model):
     cid_cod = models.AutoField(primary_key=True)
     cid_descricao = models.CharField(max_length=255, verbose_name="Cidade")
@@ -99,6 +106,9 @@ class Pessoa(models.Model):
     pes_nome = models.CharField(max_length=255, verbose_name = "Nome")
     pes_data_nascimento = models.DateField(verbose_name = "Data de Nascimento")
     pes_cpf = models.CharField(max_length=11, verbose_name = "CPF")
+    pes_email = models.CharField(max_length=255, verbose_name="E-mail")
+    pes_telefone = models.CharField(max_length=15, verbose_name="Telefone")  # Ajuste para permitir mais caracteres
+    pes_celular = models.CharField(max_length=15, verbose_name="Celular")  
     cid_naturalidade = models.ForeignKey(Cidade, on_delete=models.SET_NULL, null=True, related_name='naturalidade', verbose_name = "Cidade")
     est_naturalidade = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True, related_name='naturalidade', verbose_name = "Estado")
     end_cod = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, verbose_name = "Endereço")
@@ -110,6 +120,7 @@ class Pessoa(models.Model):
     pes_data_saida = models.DateField(null=True, blank=True, verbose_name = "Data de Saída")
     pes_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
     are_cod =  models.ForeignKey(AreaArtistica, on_delete=models.SET_NULL, null=True, verbose_name = "Área Artistica")
+    pes_imagem = models.ImageField(upload_to='imagens/', null=True, blank=True, verbose_name="Imagem")
 
     def __str__(self):
         return self.pes_nome
@@ -207,7 +218,7 @@ class EventoXPessoa(models.Model):
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")
+    age_descricao = models.TextField(max_length=500, verbose_name = "Descrição")
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
     eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
     

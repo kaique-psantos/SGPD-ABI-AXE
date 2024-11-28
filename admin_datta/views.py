@@ -3,14 +3,142 @@ from admin_datta.forms import RegistrationForm, LoginForm, UserPasswordChangeFor
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetConfirmView, PasswordResetView
 from django.views.generic import CreateView
 from django.contrib.auth import logout
-
+from abi.models import Genero, OrientacaoSexual, Etnia, Escolaridade, AreaArtistica, Cidade, Estado, Pais, Pessoa
+from .forms import PessoaForm
+from abi.models import Genero, OrientacaoSexual, Etnia, Escolaridade, AreaArtistica, Cidade, Estado, Pais, Pessoa, Endereco
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils import timezone
 
 def index(request):
   context = {
     'segment': 'index'
   }
   return render(request, "pages/index.html", context)
+
+#pessoa
+def pessoa_view(request):
+    import logging
+    logger = logging.getLogger(__name__)
+    generos = Genero.objects.all()
+    orientacaoSexual = OrientacaoSexual.objects.all()
+    etnia = Etnia.objects.all()
+    escolaridade = Escolaridade.objects.all()
+    areaArtistica = AreaArtistica.objects.all()
+    cidade = Cidade.objects.all()
+    estado = Estado.objects.all()
+    pais = Pais.objects.all()
+
+    context = {
+        'generos': generos,
+        'orientacaoSexual': orientacaoSexual,
+        'etnia': etnia,
+        'escolaridade': escolaridade,
+        'areaArtistica': areaArtistica,
+        'cidade': cidade,
+        'estado': estado,
+        'pais': pais,
+    }
+
+    if request.method == 'POST':
+        # Campos do formulário
+        nome = request.POST.get('nome')
+        cpf = request.POST.get('cpf')
+        data_nascimento = request.POST.get('data_nascimento')
+        cidade_naturalidade_id = request.POST.get('cidade_naturalidade')
+        estado_naturalidade_id = request.POST.get('estado_naturalidade')
+        genero_id = request.POST.get('genero')
+        orientacao_sexual_id = request.POST.get('orientacaoSexual')
+        etnia_id = request.POST.get('etnia')
+        escolaridade_id = request.POST.get('escolaridade')
+        area_artistica_id = request.POST.get('areaArtistica')
+        data_ingresso = request.POST.get('data_ingresso')
+
+        # Campos adicionais
+        email = request.POST.get('email')
+        telefone = request.POST.get('telefone')
+        celular = request.POST.get('celular')
+
+        # Campo de imagem
+        imagem = request.FILES.get('imagem')
+
+        logger.debug(f"Email recebido: {email}")
+
+        if not email:
+            messages.error(request, "O campo de email não pode estar vazio.")
+            return render(request, 'pages/pessoa.html', context)
+
+        # Obter objetos das FK
+        cidade_naturalidade_obj = Cidade.objects.filter(cid_cod=cidade_naturalidade_id).first()
+        estado_naturalidade_obj = Estado.objects.filter(est_cod=estado_naturalidade_id).first()
+        genero_obj = Genero.objects.filter(gen_cod=genero_id).first()
+        orientacao_sexual_obj = OrientacaoSexual.objects.filter(ori_cod=orientacao_sexual_id).first()
+        etnia_obj = Etnia.objects.filter(etn_cod=etnia_id).first()
+        escolaridade_obj = Escolaridade.objects.filter(esc_cod=escolaridade_id).first()
+        area_artistica_obj = AreaArtistica.objects.filter(are_cod=area_artistica_id).first()
+
+        if not data_ingresso:
+            data_ingresso = timezone.now()
+
+        cpf = ''.join(filter(str.isdigit, cpf))
+
+        # Criando a pessoa com as FKs e a imagem
+        pessoa = Pessoa(
+            pes_nome=nome,
+            pes_cpf=cpf,
+            pes_data_nascimento=data_nascimento,
+            cid_naturalidade=cidade_naturalidade_obj,
+            est_naturalidade=estado_naturalidade_obj,
+            gen_cod=genero_obj,
+            ori_cod=orientacao_sexual_obj,
+            etn_cod=etnia_obj,
+            esc_cod=escolaridade_obj,
+            are_cod=area_artistica_obj,
+            pes_data_ingresso=data_ingresso,
+            pes_email=email,
+            pes_telefone=telefone,
+            pes_celular=celular,
+            pes_imagem=imagem
+        )
+        pessoa.save()
+
+        # Capturando dados para o endereço
+        cidade_id = request.POST.get('cidade')
+        estado_id = request.POST.get('estado')
+
+        cidade_obj = Cidade.objects.filter(cid_cod=cidade_id).first()
+        estado_obj = Estado.objects.filter(est_cod=estado_id).first()
+
+        if not cidade_obj:
+            messages.error(request, "A cidade selecionada para o endereço não pode estar vazia.")
+            return render(request, 'pages/pessoa.html', context)
+
+        if not estado_obj:
+            messages.error(request, "O estado selecionado para o endereço não pode estar vazio.")
+            return render(request, 'pages/pessoa.html', context)
+
+        # Criando o objeto Endereco
+        endereco = Endereco(
+            pessoa=pessoa,
+            end_rua=request.POST.get('logradouro'),
+            cid_cod=cidade_obj,
+            est_cod=estado_obj,
+            end_bairro=request.POST.get('bairro'),
+            end_numero=request.POST.get('numero'),
+            end_complemento=request.POST.get('complemento'),
+            end_referencia=request.POST.get('referencia'),
+        )
+        endereco.save()
+
+        # Atualizar a relação com o endereço
+        pessoa.endereco = endereco
+        pessoa.save()
+
+        messages.success(request, 'Pessoa e endereço salvos com sucesso!')
+
+        return redirect('pessoa')
+
+    return render(request, 'pages/pessoa.html', context)
 
 # Components
 @login_required(login_url='/accounts/login/')

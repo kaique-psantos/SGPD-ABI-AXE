@@ -1,6 +1,9 @@
 from django.urls import path
 from admin_datta import views
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views 
+from .views import pessoa_view
+
+
 
 
 urlpatterns = [
@@ -52,4 +55,6 @@ urlpatterns = [
   #
   path('profile/', views.profile, name='profile'),
   path('sample-page/', views.sample_page, name='sample_page'),
+  path('pessoa/', pessoa_view, name='pessoa_view'),
 ]
+

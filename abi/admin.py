@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.contrib import admin
-from .models import Cargo, AreaPesquisa, MembroDiretoria, Estado, Cidade, Endereco, Genero, Oficio, OrientacaoSexual, Escolaridade, Etnia, AreaArtistica, Evento, Bolsista, EventoXPessoa, Agenda
+from .models import Cargo, AreaPesquisa, MembroDiretoria, Estado, Cidade, Endereco, Genero, Oficio, OrientacaoSexual, Escolaridade, Etnia, AreaArtistica, Evento, Bolsista, EventoXPessoa, Agenda, Pessoa, Pais
 #Estado
 class EstadoAdmin(admin.ModelAdmin):
     list_display = ('est_descricao', 'est_sigla')
@@ -9,6 +9,14 @@ class EstadoAdmin(admin.ModelAdmin):
     
 
 admin.site.register(Estado, EstadoAdmin)
+
+class PaisAdmin(admin.ModelAdmin):
+    list_display = ('pai_descricao', 'pai_sigla', )
+    search_fields = ('pai_descricao',)
+    ordering = ('pai_descricao',)
+    
+
+admin.site.register(Pais, PaisAdmin)
 
 #Cidade
 class CidadeAdmin(admin.ModelAdmin):
@@ -81,7 +89,7 @@ admin.site.register(AreaPesquisa, AreaPesquisaAdmin)
 
 #Diretoria
 class MembroDiretoriaAdmin(admin.ModelAdmin):
-    list_display = ('pes_cod', 'dir_data_inicio', 'dir_data_fim', 'car_cod', 'dir_ativo')
+    list_display = ('pes_cod', 'car_cod', 'dir_data_inicio', 'dir_data_fim', 'dir_ativo')
     search_fields = ('pes_cod__pes_nome',)
     ordering = ('pes_cod__pes_nome',)
 
@@ -96,11 +104,18 @@ admin.site.register(Oficio, OficioAdmin)
 
 #Bolsista
 class BolsistaAdmin(admin.ModelAdmin):
-    list_display = ('pes_cod', 'bol_data_inicio', 'bol_data_fim', 'bol_ativo', 'ape_cod')
+    list_display = ('pes_cod', 'bol_data_inicio', 'bol_data_fim', 'ape_cod', 'bol_ativo')
     search_fields = ('pes_cod__pes_nome', )
     ordering = ('bol_data_inicio',)
 
 admin.site.register(Bolsista, BolsistaAdmin)
+
+class PessoaAdmin(admin.ModelAdmin):
+    list_display = ('pes_cod', 'pes_nome', 'pes_data_nascimento', 'pes_cpf', 'cid_naturalidade', 'est_naturalidade', 'end_cod', 'ori_cod', 'gen_cod', 'esc_cod', 'etn_cod', 'pes_data_ingresso', 'pes_data_saida', 'pes_ativo', 'are_cod')
+    search_fields = ('pes_nome', 'pes_cpf', 'cid_naturalidade__nome', 'est_naturalidade__nome')
+    ordering = ('pes_nome',)
+    
+admin.site.register(Pessoa, PessoaAdmin)   
 
 #EventoAdmin
 class EventoAdmin(admin.ModelAdmin):
