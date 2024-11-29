@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, UsernameField, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from abi.models import Pessoa, UsuarioPessoa
@@ -76,6 +77,14 @@ class FormularioUpdateUser(forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if User.objects.filter(username=username).exclude(id=self.instance.id).exists():
+            raise ValidationError("Este nome de usuário já está em uso. Por favor, escolha outro.")
+
+        return username
 
 
 class FormularioUpdatePessoa(forms.ModelForm):

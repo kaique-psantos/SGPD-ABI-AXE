@@ -24,6 +24,11 @@
                         <div class="form-group">
                           {{ formUser.username.label_tag }}
                           {{ formUser.username }}
+                          {% if formUser.username.errors %}
+                            <div class="text-danger">
+                              {{ formUser.username.errors.as_text }} <!-- Mostra os erros específicos -->
+                            </div>
+                          {% endif %}
                         </div>
                       </div>
 
