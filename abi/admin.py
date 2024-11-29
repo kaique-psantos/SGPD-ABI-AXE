@@ -1,5 +1,6 @@
 from django.apps import apps
-from django.contrib import admin
+from django.contrib import admin, messages
+from admin_abi.forms import *
 from .models import *
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -15,6 +16,7 @@ class CustomModelAdmin(admin.ModelAdmin):
 
 #Estado
 class EstadoAdmin(CustomModelAdmin):
+    form = EstadoFormulario
     list_display = ('est_descricao', 'est_sigla')
     search_fields = ('est_descricao',)
     ordering = ('est_descricao',)
@@ -24,6 +26,7 @@ admin.site.register(Estado, EstadoAdmin)
 
 #Cidade
 class CidadeAdmin(CustomModelAdmin):
+    form = CidadeFormulario
     list_display = ('cid_descricao', 'est_cod')
     search_fields = ('cid_descricao',)   
     ordering = ('cid_descricao',)
@@ -39,6 +42,7 @@ admin.site.register(Endereco, EnderecoAdmin)
 
 #Genero
 class GeneroAdmin(CustomModelAdmin):
+    form = GeneroFormulario
     list_display = ('gen_descricao',)
     search_fields = ('gen_descricao',)
     ordering = ('gen_descricao',)
@@ -47,6 +51,7 @@ admin.site.register(Genero, GeneroAdmin)
 
 #Orientação Sexual
 class OrientacaoSexualAdmin(CustomModelAdmin):
+    form = OrientacaoSexualFormulario
     list_display = ('ori_descricao',)
     search_fields = ('ori_descricao',)
     ordering = ('ori_descricao',)
@@ -55,6 +60,7 @@ admin.site.register(OrientacaoSexual, OrientacaoSexualAdmin)
 
 #Escolaridade 
 class EscolaridadeAdmin(CustomModelAdmin):
+    form = EscolaridadeFormulario
     list_display = ('esc_descricao',)
     search_fields = ('esc_descricao',)
     ordering = ('esc_descricao',)
@@ -62,6 +68,7 @@ class EscolaridadeAdmin(CustomModelAdmin):
 admin.site.register(Escolaridade, EscolaridadeAdmin)
 #Etnia
 class EtniaAdmin(CustomModelAdmin):
+    form = EtniaFormulario
     list_display = ('etn_descricao',)
     search_fields = ('etn_descricao',)
     ordering = ('etn_descricao',)
@@ -70,6 +77,7 @@ admin.site.register(Etnia, EtniaAdmin)
 
 #AreaArtistica
 class AreaArtisticaAdmin(CustomModelAdmin):
+    form = AreaArtisticaFormulario
     list_display = ('are_descricao', 'are_ativo',)
     search_fields = ('are_descricao',)
     ordering = ('are_descricao',)
@@ -77,6 +85,8 @@ class AreaArtisticaAdmin(CustomModelAdmin):
 admin.site.register(AreaArtistica, AreaArtisticaAdmin)
 #Cargo
 class CargoAdmin(CustomModelAdmin):
+    form = CargoFormulario
+
     list_display = ('car_descricao', 'car_ativo')
     search_fields = ('car_descricao',)
     ordering = ('car_descricao',)
@@ -94,6 +104,7 @@ admin.site.register(Cargo, CargoAdmin)
 
 #AreaPesquisa
 class AreaPesquisaAdmin(CustomModelAdmin):
+    form = AreaPesquisaFormulario
     list_display = ('ape_descricao',)  
     search_fields = ('ape_descricao',)
     ordering = ('ape_descricao',)
@@ -167,6 +178,7 @@ admin.site.register(Oficineiro, OficineiroAdmin)
 
 
 class CursoAdmin(CustomModelAdmin):
+    form = CursoFormulario
     list_display = ('cur_descricao', 'cur_ativo',)
     search_fields = ('cur_descricao',)
     ordering = ('cur_descricao',)
