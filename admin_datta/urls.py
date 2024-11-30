@@ -55,6 +55,5 @@ urlpatterns = [
   #
   path('profile/', views.profile, name='profile'),
   path('sample-page/', views.sample_page, name='sample_page'),
-  path('pessoa/', pessoa_view, name='pessoa_view'),
 ]
 
