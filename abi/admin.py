@@ -4,7 +4,7 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.html import format_html
-
+from .views import pessoa_view
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
         obj = get_object_or_404(self.model, pk=object_id)
@@ -21,6 +21,14 @@ class EstadoAdmin(CustomModelAdmin):
     
 
 admin.site.register(Estado, EstadoAdmin)
+
+class PaisAdmin(admin.ModelAdmin):
+    list_display = ('pai_descricao', 'pai_sigla', )
+    search_fields = ('pai_descricao',)
+    ordering = ('pai_descricao',)
+    
+
+admin.site.register(Pais, PaisAdmin)
 
 #Cidade
 class CidadeAdmin(CustomModelAdmin):
@@ -101,7 +109,7 @@ class AreaPesquisaAdmin(CustomModelAdmin):
 admin.site.register(AreaPesquisa, AreaPesquisaAdmin)  
 
 #Diretoria
-class MembroDiretoriaAdmin(CustomModelAdmin):
+class MembroDiretoriaAdmin(admin.ModelAdmin):
     list_display = ('pes_cod', 'dir_data_inicio', 'dir_data_fim', 'car_cod', 'dir_ativo')
     search_fields = ('pes_cod__pes_nome',)
     ordering = ('pes_cod__pes_nome',)
@@ -122,12 +130,33 @@ class OficioAdmin(CustomModelAdmin):
 admin.site.register(Oficio, OficioAdmin)  
 
 #Bolsista
-class BolsistaAdmin(CustomModelAdmin):
+class BolsistaAdmin(admin.ModelAdmin):
     list_display = ('pes_cod', 'bol_data_inicio', 'bol_data_fim', 'bol_ativo', 'ape_cod')
     search_fields = ('pes_cod__pes_nome', )
     ordering = ('bol_data_inicio',)
 
 admin.site.register(Bolsista, BolsistaAdmin)
+
+class PessoaAdmin(admin.ModelAdmin):
+    list_display = ('pes_cod_link', 'delete_link', 'pes_nome', 'pes_data_nascimento', 'pes_cpf', 'ori_cod', 'gen_cod', 'esc_cod', 'etn_cod', 'pes_data_ingresso', 'pes_data_saida', 'are_cod', 'pes_ativo')
+    search_fields = ('pes_nome', 'pes_cpf', 'cid_naturalidade__nome', 'est_naturalidade__nome')
+    ordering = ('pes_nome',)
+
+    def has_add_permission(self, request):
+        return False 
+
+    def pes_cod_link(self, obj):
+        return format_html('<a href="{}"><i class="fas fa-pencil-alt"></i></a>', reverse('pessoa_detail', args=[obj.pes_cod]))
+    pes_cod_link.short_description = 'Editar'
+
+    def delete_link(self, obj):
+        return format_html(
+            '<a href="{}" style="color: red;" onclick="return confirm(\'Tem certeza que deseja excluir este registro?\')"><i class="fas fa-trash-alt"></i></a>',
+            reverse('deletar_pessoa', args=[obj.pk])
+        )
+    delete_link.short_description = 'Excluir'
+
+admin.site.register(Pessoa, PessoaAdmin)
 
 #EventoAdmin
 class EventoAdmin(CustomModelAdmin):
@@ -150,14 +179,11 @@ admin.site.register(EventoXPessoa, EventoXPessoaAdmin)
 
 #Agenda
 class AgendaAdmin(admin.ModelAdmin):
-    list_display = ('age_titulo', 'age_data', 'eve_cod')
-    search_fields = ('age_titulo',)
+    list_display = ('age_descricao', 'age_data', 'eve_cod')
+    search_fields = ('age_descricao',)
     ordering = ('-age_data',)
 admin.site.register(Agenda, AgendaAdmin)
 
-
-#Pessoa
-admin.site.register(Pessoa)
 
 class OficineiroAdmin(CustomModelAdmin):
     list_display = ('pes_cod', 'ofc_descricao', 'ofc_ativo',)

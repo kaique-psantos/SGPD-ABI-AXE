@@ -1,7 +1,14 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views 
+
 from admin_abi import views
 from django.contrib.auth import views as auth_views
 from abi.views import dashboard
+from abi.views import pessoa_view
+from abi.views import pessoa_detail
+from abi.views import verificar_cpf
+from abi.views import deletar_pessoa
+from abi.templates.includes import *
 
 
 
@@ -37,4 +44,9 @@ urlpatterns = [
   #
   path('profile/', views.profile, name='profile'),
   path('profile_update/', views.profile_update, name='profile_update'),
+  path('Abi/pessoa', pessoa_view, name='pessoa_view'),
+  path('Abi/verificar_cpf', verificar_cpf, name='verificar_cpf'),
+  path('pessoa/<int:pes_cod>/', pessoa_detail, name='pessoa_detail'),
+  path('delete/<int:pk>/', deletar_pessoa, name='deletar_pessoa'),
 ]
+
