@@ -138,7 +138,7 @@ class FormularioCriarUser(UserCreationForm):
 class CargoFormulario(forms.ModelForm):
     class Meta:
         model = Cargo
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_car_descricao(self):
         car_descricao = self.cleaned_data.get('car_descricao')
@@ -149,7 +149,7 @@ class CargoFormulario(forms.ModelForm):
 class AreaPesquisaFormulario(forms.ModelForm):
     class Meta:
         model = AreaPesquisa
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_ape_descricao(self):
         ape_descricao = self.cleaned_data.get('ape_descricao')
@@ -160,7 +160,7 @@ class AreaPesquisaFormulario(forms.ModelForm):
 class EstadoFormulario(forms.ModelForm):
     class Meta:
         model = Estado
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_est_descricao(self):
         est_descricao = self.cleaned_data.get('est_descricao')
@@ -177,7 +177,7 @@ class EstadoFormulario(forms.ModelForm):
 class CidadeFormulario(forms.ModelForm):
     class Meta:
         model = Cidade
-        fields = '_all_'
+        fields = '__all__'
 
     def clean(self):
         cleaned_data = super().clean()
@@ -190,7 +190,7 @@ class CidadeFormulario(forms.ModelForm):
 class AreaArtisticaFormulario(forms.ModelForm):
     class Meta:
         model = AreaArtistica
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_are_descricao(self):
         are_descricao = self.cleaned_data.get('are_descricao')
@@ -201,7 +201,7 @@ class AreaArtisticaFormulario(forms.ModelForm):
 class CursoFormulario(forms.ModelForm):
     class Meta:
         model = Curso
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_cur_descricao(self):
         cur_descricao = self.cleaned_data.get('cur_descricao')
@@ -212,7 +212,7 @@ class CursoFormulario(forms.ModelForm):
 class EscolaridadeFormulario(forms.ModelForm):
     class Meta:
         model = Escolaridade
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_esc_descricao(self):
         esc_descricao = self.cleaned_data.get('esc_descricao')
@@ -223,7 +223,7 @@ class EscolaridadeFormulario(forms.ModelForm):
 class EtniaFormulario(forms.ModelForm):
     class Meta:
         model = Etnia
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_etn_descricao(self):
         etn_descricao = self.cleaned_data.get('etn_descricao')
@@ -234,7 +234,7 @@ class EtniaFormulario(forms.ModelForm):
 class GeneroFormulario(forms.ModelForm):
     class Meta:
         model = Genero
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_gen_descricao(self):
         gen_descricao = self.cleaned_data.get('gen_descricao')
@@ -245,7 +245,7 @@ class GeneroFormulario(forms.ModelForm):
 class OrientacaoSexualFormulario(forms.ModelForm):
     class Meta:
         model = OrientacaoSexual
-        fields = '_all_'
+        fields = '__all__'
 
     def clean_ori_descricao(self):
         ori_descricao = self.cleaned_data.get('ori_descricao')

@@ -1,14 +1,12 @@
 from django.apps import apps
 from django.contrib import admin, messages
-
-from admin_abi.forms import EstadoFormulario, CidadeFormulario, GeneroFormulario, OrientacaoSexualFormulario, \
-    EscolaridadeFormulario, EtniaFormulario, AreaArtisticaFormulario, CargoFormulario, AreaPesquisaFormulario, \
-    CursoFormulario
+from admin_abi.forms import *
 from .models import *
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.html import format_html
 from .views import pessoa_view
+
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
         obj = get_object_or_404(self.model, pk=object_id)
