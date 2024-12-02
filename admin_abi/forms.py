@@ -77,6 +77,15 @@ class FormularioUpdateUser(forms.ModelForm):
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if User.objects.filter(username=username).exclude(id=self.instance.id).exists():
+            raise ValidationError("Este nome de usuário já está em uso. Por favor, escolha outro.")
+
+        return username
+
+
 
 class FormularioUpdatePessoa(forms.ModelForm):
     class Meta:
