@@ -14,7 +14,7 @@ class UsuarioCustomizado(UserAdmin):
     )
     fieldsets = (
         (None, {
-            'fields': ('username', 'email'),
+            'fields': ['username'],
         }),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),

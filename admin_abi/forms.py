@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from abi.models import *
 from django.forms.models import inlineformset_factory
 
-from  abi.models import Pessoa, Genero, OrientacaoSexual, Etnia, Escolaridade, AreaArtistica
 
 class RegistrationForm(UserCreationForm):
   password1 = forms.CharField(
@@ -78,17 +77,16 @@ class FormularioUpdateUser(forms.ModelForm):
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-class PessoaForm(forms.ModelForm):
-    class Meta:
-        model = Pessoa
-        fields = ['pes_nome', 'pes_data_nascimento', 'pes_cpf', 'pes_email', 'pes_telefone',
-                'pes_celular', 'cid_naturalidade', 'est_naturalidade', 'end_cod', 
-                'ori_cod', 'gen_cod', 'esc_cod', 'etn_cod', 'pes_data_ingresso', 
-                'pes_data_saida', 'pes_ativo', 'are_cod', 'pes_imagem', 'cid_cod', 
-                'est_cod', 'end_rua', 'end_bairro', 'end_numero', 'end_complemento', 
-                'end_referencia']
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
 
-    
+        if User.objects.filter(username=username).exclude(id=self.instance.id).exists():
+            raise ValidationError("Este nome de usuário já está em uso. Por favor, escolha outro.")
+
+        return username
+
+
+
 class FormularioUpdatePessoa(forms.ModelForm):
     class Meta:
         model = Pessoa
