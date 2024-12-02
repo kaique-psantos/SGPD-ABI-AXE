@@ -55,8 +55,8 @@ def profile(request):
     context = {
       'segment': 'profile',
       'nome': pessoa.pes_cod.pes_nome,
-      'sobrenome': user.last_name,
-      'email': user.email,
+      'cpf': pessoa.pes_cod.pes_cpf,
+      'email': pessoa.pes_cod.pes_email,
       'usuario': user.username,
       'cargo': f'Cargo: {cargo.car_cod} - {pessoa.pes_cod.are_cod}',
       'dt_ingresso': f'Data de Ingresso: {data_formatada}',
