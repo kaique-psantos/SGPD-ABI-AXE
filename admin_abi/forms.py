@@ -115,12 +115,11 @@ class FormularioCriarUser(UserCreationForm):
         user = super().save()
         pessoa = self.cleaned_data.get('pessoa')
 
-        UsuarioPessoa.objects.create(user=user, pes_cod=pessoa)
-
         if not pessoa:
             user.first_name = user.username
             user.save()
         else:
+            UsuarioPessoa.objects.create(user=user, pes_cod=pessoa)
             user.first_name = pessoa.pes_nome
             user.save()
 
