@@ -110,7 +110,7 @@ form ul.inline li {
 
 form .aligned ul {
     margin-left: 160px;
-    padding-left: 10px;
+    padding-left: 0px;
 }
 
 form .aligned ul.radiolist {

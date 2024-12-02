@@ -229,9 +229,11 @@ class Evento(models.Model):
     def clean(self):
         if self.eve_data < (datetime.strptime('01/01/2023', '%d/%m/%Y').date()):
             raise ValidationError({'eve_data': 'A data do evento não pode ser muito antiga.'})
-        if self.eve_data_retorno < self.eve_data:
+        
+        if (self.eve_data_retorno) and (self.eve_data_retorno < self.eve_data):
             raise ValidationError({'eve_data_retorno': 'A data de retorno não pode ser menor que a data do evento.'})
-        if self.eve_data == self.eve_data_retorno:
+        
+        if (self.eve_data_retorno) and (self.eve_data == self.eve_data_retorno):
             if self.eve_horario_retorno < self.eve_horario_saida:
                 raise ValidationError({'eve_horario_retorno': 'A hora de retorno não pode ser menor que a hora de saída no mesmo dia.'})
         super().clean()

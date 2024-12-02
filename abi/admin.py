@@ -4,6 +4,8 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.html import format_html
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
