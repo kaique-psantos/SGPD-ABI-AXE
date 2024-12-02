@@ -113,7 +113,9 @@ admin.site.register(Cargo, CargoAdmin)
 #AreaPesquisa
 class AreaPesquisaAdmin(CustomModelAdmin):
     form = AreaPesquisaFormulario
+
     list_display = ('ape_descricao',)
+
     search_fields = ('ape_descricao',)
     ordering = ('ape_descricao',)
 

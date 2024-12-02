@@ -265,6 +265,6 @@ def imprimir_oficio(request, ofi_cod):
 
     with open(output_file, 'rb') as pdf_file:
         response = HttpResponse(pdf_file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="oficio_{oficio['ofi_assunto']}.pdf"'
+        response['Content-Disposition'] = f"attachment; filename='oficio_{oficio['ofi_assunto']}.pdf'"
         return response
 

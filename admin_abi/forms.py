@@ -6,7 +6,6 @@ from abi.models import *
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import ValidationError
 
-from  abi.models import Pessoa, Genero, OrientacaoSexual, Etnia, Escolaridade, AreaArtistica
 
 class RegistrationForm(UserCreationForm):
   password1 = forms.CharField(
@@ -95,8 +94,7 @@ class PessoaForm(forms.ModelForm):
                 'pes_data_saida', 'pes_ativo', 'are_cod', 'pes_imagem', 'cid_cod', 
                 'est_cod', 'end_rua', 'end_bairro', 'end_numero', 'end_complemento', 
                 'end_referencia']
-
-    
+        
 class FormularioUpdatePessoa(forms.ModelForm):
     class Meta:
         model = Pessoa
