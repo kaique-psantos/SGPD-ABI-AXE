@@ -57,8 +57,6 @@
                         <option value="">Selecione o Gênero</option>
                         {% for genero in generos %}
                             <option value="{{ genero.gen_cod }}">{{ genero.gen_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhum gênero disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -68,8 +66,6 @@
                         <option value="">Selecione a Orientação Sexual</option>
                         {% for orientacaoSexual in orientacaoSexual %}
                             <option value="{{ orientacaoSexual.ori_cod }}">{{ orientacaoSexual.ori_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhuma orientação sexual disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -82,8 +78,6 @@
                         <option value="">Selecione a Etnia/Raça</option>
                         {% for etnia in etnia %}
                             <option value="{{ etnia.etn_cod }}">{{ etnia.etn_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhuma etnia/raça disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -93,8 +87,6 @@
                         <option value="">Selecione o nível de escolaridade</option>
                         {% for escolaridade in escolaridade %}
                             <option value="{{ escolaridade.esc_cod }}">{{ escolaridade.esc_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhuma escolaridade disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -104,8 +96,6 @@
                         <option value="">Selecione a Área</option>
                         {% for area in areaArtistica %}
                             <option value="{{ area.are_cod }}">{{ area.are_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhuma Área disponível</option>
                         {% endfor %}
                     </select>
                 </div>  
@@ -143,8 +133,6 @@
                         <option value="">Selecione a Cidade</option>
                         {% for cidade in cidade %}
                             <option value="{{ cidade.cid_cod }}">{{ cidade.cid_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhuma cidade disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -154,8 +142,6 @@
                         <option value="">Selecione o Estado</option>
                         {% for estado in estado %}
                             <option value="{{ estado.est_cod }}">{{ estado.est_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhum estado disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -165,8 +151,6 @@
                         <option value="">Selecione o País</option>
                         {% for pais in pais %}
                             <option value="{{ pais.pai_cod }}">{{ pais.pai_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhum país disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -239,8 +223,6 @@
                         <option value="">Selecione a Cidade</option>
                         {% for cidade in cidade %}
                             <option value="{{ cidade.cid_cod }}">{{ cidade.cid_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhuma cidade disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -250,8 +232,6 @@
                         <option value="">Selecione o Estado</option>
                         {% for estado in estado %}
                             <option value="{{ estado.est_cod }}">{{ estado.est_descricao }}</option>
-                        {% empty %}
-                            <option value="">Nenhum estado disponível</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -273,6 +253,19 @@
 </form>
 
 <script>
+        function mascaraCPF(campo) {
+            var cpf = campo.value.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+            if (cpf.length <= 3) {
+                campo.value = cpf;
+            } else if (cpf.length <= 6) {
+                campo.value = cpf.replace(/(\d{3})(\d{1,})/, '$1.$2');
+            } else if (cpf.length <= 9) {
+                campo.value = cpf.replace(/(\d{3})(\d{3})(\d{1,})/, '$1.$2.$3');
+            } else {
+                campo.value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{1,})/, '$1.$2.$3-$4');
+            }
+        }
+
         function validarCPF(cpf) {
             cpf = cpf.replace(/[^\d]+/g, '');
         
