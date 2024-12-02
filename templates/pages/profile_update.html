@@ -1,0 +1,91 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+{% block content %}
+
+  <!-- [ Main Content ] start -->
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>Informação do Usuário</h5>
+        </div>
+        <div class="card-block">
+          <div class="row">
+
+              <div class = 'col-sm-12 mb-4'>
+                <form method="post">
+                  {% csrf_token %}
+
+                  <div class="form-row">
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ formUser.username.label_tag }}
+                          {{ formUser.username }}
+                        </div>
+                      </div>
+
+                    {% if existe %}
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ formPessoa.pes_nome.label_tag }}
+                          {{ formPessoa.pes_nome }}
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ formPessoa.pes_cpf.label_tag }}
+                          {{ formPessoa.pes_cpf }}
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          {{ formPessoa.pes_email.label_tag }}
+                          {{ formPessoa.pes_email }}
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+
+
+
+                  <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-block">
+          <div class="d-flex align-items-center justify-content-center flex-column">
+            <div class="w-50 p-3">
+              <img src="{% static 'assets/images/user/logo_user.jpg' %}" alt="profile image"
+                class="img-fluid rounded-circle">
+            </div>
+            <div class="text-center">
+              {% if existe %}
+              <h4 class="font-weight-bold h4">{{ nome }}</h4>
+              {% else %}
+              <h4 class="font-weight-bold h4">{{ usuario }}</h4>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="small font-weight-light mt-4 text-center text-muted">
+            <p>{{ cargo }}</p>
+            <p>{{ dt_ingresso }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+ {% endblock content %}

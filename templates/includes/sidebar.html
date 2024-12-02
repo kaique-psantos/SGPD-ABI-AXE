@@ -1,0 +1,181 @@
+{% load i18n static admin_abi %}
+
+{% if not request.user.is_authenticated %}
+  <script>
+    window.location.href = "{% url 'login' %}";
+  </script>
+{% endif %}
+
+<nav class="pcoded-navbar">
+  <div class="navbar-wrapper">
+    <div class="navbar-brand header-logo">
+      <a href="{% url 'index' %}" class="b-brand">
+        <!--
+        <div class="b-bg">
+          <i class="fa-solid fa-people-roof"></i>
+        </div>
+        -->
+        <img src="{% static 'assets/images/logo_abi.png' %}">
+        <span class="b-title">SGPD - Abí Axé</span>
+      </a>
+      <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+    </div>
+    <div class="navbar-content scroll-div">
+      <ul class="nav pcoded-inner-navbar">
+        <li class="nav-item pcoded-menu-caption">
+          <label class='label-menu'>Menu</label>
+        </li>
+        
+        <li data-username="inicio início" class="nav-item {% if 'index' in segment %}active{% endif %}">
+          {% if request.user.is_superuser %}
+            <a href="{% url 'index' %}" class="nav-link ">
+          {% else %}
+          <a href="{% url 'index' %}" class="nav-link ">
+          {% endif %}
+            <span class="pcoded-micon">
+              <i class="feather icon-home"></i>
+            </span>
+            <span class="pcoded-mtext">Início</span>
+          </a>
+        </li>
+
+        {% if perms.abi.view_agenda or perms.abi.view_evento or perms.abi.view_eventoxpessoa  %}
+        <li data-username="agenda, eventos, integrantes no evento" class="nav-item pcoded-hasmenu {% if secao == 'agenda' %}active pcoded-trigger{% endif %}">
+          <a href="javascript:" class="nav-link ">
+            <span class="pcoded-micon">
+              <i class="fa-regular fa-calendar"></i>
+            </span>
+            <span class="pcoded-mtext">Agenda</span>
+          </a>
+          
+          <ul class=" nav-item pcoded-submenu">
+          {% if perms.abi.view_agenda %}
+            <li data-username="agenda"><a href="/admin/abi/agenda/">Agenda</a></li>
+            {% endif %}
+            {% if perms.abi.view_evento %}
+            <li data-username="eventos"><a href="/admin/abi/evento/">Eventos</a></li>
+            {% endif %}
+            {% if perms.abi.view_eventoxpessoa %}
+            <li data-username="Integrantes no evento"><a href="/admin/abi/eventoxpessoa/">Integrantes no Evento</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        {% endif %}
+        
+        {% if perms.abi.view_oficio %}
+        <li data-username="documentos, Oficios, Ofícios" class="nav-item pcoded-hasmenu {% if secao == 'documentos' %}active pcoded-trigger{% endif %}">
+          <a href="javascript:" class="nav-link ">
+            <span class="pcoded-micon">
+              <i class="fa-regular fa-file"></i>
+            </span>
+            <span class="pcoded-mtext">Documentos</span>
+          </a>
+          
+          <ul class="pcoded-submenu">
+          {% if perms.abi.view_oficio %}
+            <li data-username="Oficios"><a href="/admin/abi/oficio/">Ofícios</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        {% endif%}
+
+        {% if perms.abi.view_pessoa or perms.abi.view_bolsista or perms.abi.view_membrodiretoria or perms.abi.view_oficineiro %}
+        <li data-username="Integrantes, Bolsistas, Diretoria" class="nav-item pcoded-hasmenu {% if secao == 'integrantes' %}active pcoded-trigger{% endif %}">
+          <a href="javascript:" class="nav-link ">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-users"></i>
+            </span>
+            <span class="pcoded-mtext">Integrantes</span>
+          </a>
+          
+          <ul class="pcoded-submenu">
+            {% if perms.abi.view_pessoa %}
+            <li data-username="Integrantes"><a href="/admin/abi/pessoa/">Integrantes</a></li>
+            {% endif %}
+            {% if perms.abi.view_bolsista %}
+            <li data-username="Bolsistas"><a href="/admin/abi/bolsista/">Bolsistas</a></li>
+            {% endif %}
+            {% if perms.abi.view_membrodiretoria %}
+            <li data-username="Diretoria"><a href="/admin/abi/membrodiretoria/">Diretoria</a></li>
+            {% endif %}
+            {% if perms.abi.view_oficineiro %}
+            <li data-username="Oficineiro"><a href="/admin/abi/oficineiro/">Oficineiros</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        {% endif %}
+
+        {% if perms.abi.view_areapesquisa or perms.abi.view_areaartistica or perms.abi.view_cargo or perms.abi.view_cidade or perms.abi.view_curso or perms.abi.view_estados or perms.abi.view_escolaridade or perms.abi.view_etnia or perms.abi.view_genero or perms.abi.view_orientacaosexual %}
+        <li data-username="Parâmetros do Sistema, Áreas de Pesquisa, Curso, areas de Pesquisa, Campo Artistico, Cargos, Cidades, Estados, Escolaridades, Etnias, Gêneros, Generos, Orientações Sexuais, Orientacoes Sexuais" class="nav-item pcoded-hasmenu {% if secao == 'parametros_do_sistema'  %}active pcoded-trigger{% endif %}">
+          <a href="javascript:" class="nav-link ">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-gear"></i>
+            </span>
+            <span class="pcoded-mtext">Parâmetros do Sistema</span>
+        </a>
+          <ul class="pcoded-submenu">
+
+            {% if perms.abi.view_areapesquisa %}
+            <li data-username="Áreas de Pesquisa"><a href="/admin/abi/areapesquisa/">Áreas de Pesquisa</a></li>
+            {% endif %}
+            
+            {% if perms.abi.view_areaartistica %}
+            <li data-username="Campo Artistico"><a href="/admin/abi/areaartistica/">Campo Artistico</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_cargo %}
+            <li data-username="Cargos"><a href="/admin/abi/cargo/">Cargos</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_curso %}
+            <li data-username="Curso"><a href="/admin/abi/curso/">Cursos</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_cidade %}
+            <li data-username="Cidades"><a href="/admin/abi/cidade/">Cidades</a></li>
+            {% endif %}           
+
+            {% if perms.abi.view_estado %}
+            <li data-username="Estados"><a href="/admin/abi/estado/">Estados</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_escolaridade %}
+            <li data-username="Escolaridades"><a href="/admin/abi/escolaridade/">Escolaridades</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_etnia %}
+            <li data-username="Etnias"><a href="/admin/abi/etnia/">Etnias/Raças</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_genero %}
+            <li data-username="Gêneros"><a href="/admin/abi/genero/">Gêneros</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_orientacaosexual %}
+            <li data-username="Orientações Sexuais"><a href="/admin/abi/orientacaosexual/">Orientações Sexuais</a></li>
+            {% endif %}
+          </ul> 
+        </li>
+        {% endif %}
+       
+
+
+      {% if request.user.is_superuser %}
+      <li data-username="Autenticação, Autenticacao, Usuários, Usuarios, Grupos de Usuários, Grupos de Usuarios" class="nav-item pcoded-hasmenu {% if 'basic_components' in parent %}active pcoded-trigger{% endif %}">
+        <a href="javascript:" class="nav-link ">
+           <span class="pcoded-micon">
+             <i class="feather icon-box"></i>
+           </span>
+           <span class="pcoded-mtext">Autenticação</span>
+         </a>
+       <ul class="pcoded-submenu">
+           <li><a href="/admin/auth/user/">Usuários</a></li>
+           <li><a href="/admin/auth/group/">Grupos de Usuário</a></li>
+       </ul>
+      </li>
+      {% endif%}
+      
+      </ul>
+    </div>
+  </div>
+</nav>

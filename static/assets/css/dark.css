@@ -93,3 +93,21 @@ body.dark {
     background-color: transparent; }
 
 
+  body.dark .related-widget-wrapper select{
+    background-color: rgba(8, 32, 50, 0.8);
+    border-color: #2C394B !important;
+    color: white; }
+
+  body.dark .card label{
+    color: white; }
+  
+  body.dark .card input{
+    background-color: rgba(8, 32, 50, 0.8);
+    border-color: #2C394B !important;
+    color: white;}
+
+    body.dark .date input{
+      background-color: rgba(8, 32, 50, 0.8);
+      border-color: #2C394B !important;
+      color: white; }
+  
