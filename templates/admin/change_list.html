@@ -57,8 +57,12 @@
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group">
                     {% block object-tools-items %}
-                        {% change_list_object_tools %}   
+                        {% change_list_object_tools %} 
+                        {% if cl.opts.verbose_name_plural == 'Integrantes' %}
+                            <a href="{% url 'pessoa_view' %}" class="btn btn-primary" style="background-color: #1ee2b1; border: none;"><i class="fa-solid fa-plus" style="color: #ffffff;"></i> Novo Integrante</a>
+                        {% endif %}  
                     {% endblock %}
+                    
                 </div>
                 
             </div>
