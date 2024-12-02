@@ -626,7 +626,8 @@ select + .related-widget-wrapper-link,
 }
 
 ul.errorlist {
-    margin: -25px 0 25px 0px;
+    margin: 0 !important;
+    padding-left: -10px !important;
     list-style-type: none;
     color: #d96060;
 }
