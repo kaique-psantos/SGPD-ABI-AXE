@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.html import format_html
 from .views import pessoa_view
+
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
         obj = get_object_or_404(self.model, pk=object_id)
@@ -20,7 +21,7 @@ class EstadoAdmin(CustomModelAdmin):
     list_display = ('est_descricao', 'est_sigla')
     search_fields = ('est_descricao',)
     ordering = ('est_descricao',)
-    
+
 
 admin.site.register(Estado, EstadoAdmin)
 
@@ -28,7 +29,7 @@ class PaisAdmin(admin.ModelAdmin):
     list_display = ('pai_descricao', 'pai_sigla', )
     search_fields = ('pai_descricao',)
     ordering = ('pai_descricao',)
-    
+
 
 admin.site.register(Pais, PaisAdmin)
 
@@ -36,7 +37,7 @@ admin.site.register(Pais, PaisAdmin)
 class CidadeAdmin(CustomModelAdmin):
     form = CidadeFormulario
     list_display = ('cid_descricao', 'est_cod')
-    search_fields = ('cid_descricao',)   
+    search_fields = ('cid_descricao',)
     ordering = ('cid_descricao',)
 
 admin.site.register(Cidade, CidadeAdmin)
@@ -54,7 +55,7 @@ class GeneroAdmin(CustomModelAdmin):
     list_display = ('gen_descricao',)
     search_fields = ('gen_descricao',)
     ordering = ('gen_descricao',)
-    
+
 admin.site.register(Genero, GeneroAdmin)
 
 #Orientação Sexual
@@ -66,7 +67,7 @@ class OrientacaoSexualAdmin(CustomModelAdmin):
 
 admin.site.register(OrientacaoSexual, OrientacaoSexualAdmin)
 
-#Escolaridade 
+#Escolaridade
 class EscolaridadeAdmin(CustomModelAdmin):
     form = EscolaridadeFormulario
     list_display = ('esc_descricao',)
@@ -94,18 +95,17 @@ admin.site.register(AreaArtistica, AreaArtisticaAdmin)
 #Cargo
 class CargoAdmin(CustomModelAdmin):
     form = CargoFormulario
-
     list_display = ('car_descricao', 'car_ativo')
     search_fields = ('car_descricao',)
     ordering = ('car_descricao',)
-    
+
     def history_view(self, request, object_id, extra_context=None):
-      
+
         obj = get_object_or_404(Cargo, pk=object_id)
         extra_context = extra_context or {}
-        extra_context['object_title'] = obj  
-        
-        
+        extra_context['object_title'] = obj
+
+
         return super().history_view(request, object_id, extra_context=extra_context)
 
 admin.site.register(Cargo, CargoAdmin)
@@ -113,11 +113,13 @@ admin.site.register(Cargo, CargoAdmin)
 #AreaPesquisa
 class AreaPesquisaAdmin(CustomModelAdmin):
     form = AreaPesquisaFormulario
-    list_display = ('ape_descricao',)  
+
+    list_display = ('ape_descricao',)
+
     search_fields = ('ape_descricao',)
     ordering = ('ape_descricao',)
 
-admin.site.register(AreaPesquisa, AreaPesquisaAdmin)  
+admin.site.register(AreaPesquisa, AreaPesquisaAdmin)
 
 #Diretoria
 class MembroDiretoriaAdmin(admin.ModelAdmin):
@@ -125,20 +127,20 @@ class MembroDiretoriaAdmin(admin.ModelAdmin):
     search_fields = ('pes_cod__pes_nome',)
     ordering = ('pes_cod__pes_nome',)
 
-admin.site.register(MembroDiretoria, MembroDiretoriaAdmin)  
+admin.site.register(MembroDiretoria, MembroDiretoriaAdmin)
 
 #Oficio
 class OficioAdmin(CustomModelAdmin):
     list_display = ('ofi_numero', 'ofi_assunto', 'ofi_destinatario', 'ofi_data', 'dir_cod', 'botao_impressao')
     search_fields = ('ofi_assunto',) #Precisa ser analisado
     ordering = ('-ofi_data',)
-    
+
     def botao_impressao(self, obj):
         url = reverse('oficio_imprimir', args=[obj.ofi_cod])
         return format_html('<a class="btn" href="{}"><i class="fa-solid fa-print"></i></a>', url)
 
     botao_impressao.short_description = 'Impressão'
-admin.site.register(Oficio, OficioAdmin)  
+admin.site.register(Oficio, OficioAdmin)
 
 #Bolsista
 class BolsistaAdmin(admin.ModelAdmin):
@@ -154,7 +156,7 @@ class PessoaAdmin(admin.ModelAdmin):
     ordering = ('pes_nome',)
 
     def has_add_permission(self, request):
-        return False 
+        return False
 
     def pes_cod_link(self, obj):
         return format_html('<a href="{}"><i class="fas fa-pencil-alt"></i></a>', reverse('pessoa_detail', args=[obj.pes_cod]))
@@ -174,9 +176,9 @@ class EventoAdmin(CustomModelAdmin):
     list_display = ('eve_nome', 'eve_data', 'cid_local', 'est_cod')
     search_fields = ('eve_nome',)
     ordering =  ('-eve_data',)
-    
 
-    
+
+
 admin.site.register(Evento, EventoAdmin)
 
 #Evento - Pessoa
