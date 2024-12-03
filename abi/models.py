@@ -110,6 +110,9 @@ class Curso(models.Model):
     cur_descricao = models.CharField(max_length=255, verbose_name = "Curso")
     cur_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
 
+    def __str__(self):
+        return self.cur_descricao
+
 
 class Pessoa(models.Model):
     pes_cod = models.AutoField(primary_key=True)
