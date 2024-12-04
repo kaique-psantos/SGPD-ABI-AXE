@@ -152,8 +152,8 @@ admin.site.register(Bolsista, BolsistaAdmin)
 
 class PessoaAdmin(admin.ModelAdmin):
     list_display = ('pes_cod_link', 'delete_link', 'pes_nome', 'pes_data_nascimento', 'pes_cpf', 'ori_cod', 'gen_cod', 'esc_cod', 'etn_cod', 'pes_data_ingresso', 'pes_data_saida', 'are_cod', 'pes_ativo')
-    search_fields = ('pes_nome', 'pes_cpf', 'cid_naturalidade__nome', 'est_naturalidade__nome')
-    ordering = ('pes_nome',)
+    search_fields = ['pes_nome']
+    ordering = ['pes_nome']
 
     def has_add_permission(self, request):
         return False
