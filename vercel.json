@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "core/wsgi.py",
+        "src": "/core/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
       },
@@ -21,7 +21,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "SGPD-ABI-AXE/wsgi.py"
+        "dest": "/core/wsgi.py"
       }
     ]
   }
