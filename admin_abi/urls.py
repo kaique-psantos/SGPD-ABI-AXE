@@ -8,7 +8,7 @@ from abi.views import pessoa_view
 from abi.views import pessoa_detail
 from abi.views import verificar_cpf
 from abi.views import deletar_pessoa
-from abi.templates.includes import *
+from templates.includes import *
 
 
 

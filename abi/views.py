@@ -18,7 +18,7 @@ from abi.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-from abi.templates import *
+from templates import *
 
 from django.http import JsonResponse
 
