@@ -20,10 +20,11 @@ if not SECRET_KEY:
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
 
 # Add here your deployment HOSTS
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://localhost:5085', 'http://127.0.0.1:8000', 'http://127.0.0.1:5085']
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
@@ -31,8 +32,8 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SESSION_COOKIE_AGE = 1800  
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-# SESSION_COOKIE_SECURE = True #ATIVAR EM PRODUÇÃO
-# SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True #ATIVAR EM PRODUÇÃO
+SESSION_COOKIE_HTTPONLY = True
 
 # # Para inatividade
 SESSION_EXPIRE_SECONDS = 1800 
@@ -102,13 +103,15 @@ DB_USERNAME = os.getenv('DB_USERNAME' , None)
 DB_PASS     = os.getenv('DB_PASS'     , None)
 DB_HOST     = os.getenv('DB_HOST'     , None)
 DB_PORT     = os.getenv('DB_PORT'     , None)
-DB_NAME     = os.getenv('DB_NAME'     , None)
-LINK_BANCO  = os.getenv('LINK_BANCO'     , None)
+DB_NAME     = os.getenv('DB_NAME'     , None)  
 
 
-DATABASES = { 
-    'default':  dj_database_url.parse(LINK_BANCO)
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('LINK_BANCO')  # Aqui pega o URL do banco
+    )
 }
+
 
 
 
@@ -161,8 +164,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-#if not DEBUG:
-#    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
