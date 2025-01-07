@@ -1,23 +1,43 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
+{% load i18n admin_urls static admin_modify %}
 
 {% block title %}Pessoa{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#!"><i class="feather icon-home"></i></a></li>
-        <li class="breadcrumb-item active" aria-current="page">Pessoa</li>
-    </ol>
-</nav>
+<div class="page-header">
+    <div class="page-block">
+      <div class="row align-items-center">
+        <div class="col-md-12">
+          <div class="page-header-title">
+          </div>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="#" onclick="window.history.back(); return false;">Integrantes</a></li>
+            <li class="breadcrumb-item"> <a>Cadastro</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock breadcrumbs %}
 {% block content %}
 <form  id="pessoaForm" method="POST" action="{% url 'pessoa_view' %}"  enctype="multipart/form-data" onsubmit="return validarFormulario(event)">
     {% csrf_token %}
-    <!-- Aba de navegação -->
-    <div class="d-flex justify-content-between">
-        <a href="{% url 'admin:abi_pessoa_changelist' %}" class="btn btn-light mt-2 " style="position: relative; z-index: 5; background-color: #8a8a8a; color: #FFF; left: 92%;"><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>Voltar</a>
+    <div class="py-4">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary ms-4"  id="btnVoltarIntegrante" onclick="window.location.href='{% url 'admin:abi_pessoa_changelist' %}'">Voltar</button>
     </div>
+
+    <div>
+
+        <a href="/admin/abi/pessoa/{{ pessoa.pes_cod }}/history/" class="d-inline-flex align-items-center">
+            <i class="fa fa-book"></i> &nbsp; Histórico
+        </a>        
+
+    </div>
+    </div>
+
+    {% comment %} Aba de navegação {% endcomment %}   
     <ul class="nav nav-tabs" id="myTab" role="tablist"> 
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Dados" type="button" role="tab" aria-controls="Dados" aria-selected="true">Dados</button>
@@ -26,9 +46,12 @@
                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#Endereco" type="button" role="tab" aria-controls="Endereco" aria-selected="false">Endereço</button>
             </li>
     </ul>   
-    <!-- Conteúdo das abas -->
+    {% comment %} Conteúdo das abas  {% endcomment %}
     <div class="tab-content" id="myTabContent">
         
+        {% if pessoa %}
+            <input type="hidden" name="pessoa_id" id="pessoa_id" value="{{ pessoa.pes_cod }}">
+        {% endif %}
         <div class="tab-pane fade show active" id="Dados" role="tabpanel" aria-labelledby="home-tab">
             <div class="form-row">
                 <div class="col-sm-9">
@@ -55,17 +78,32 @@
                     <label for="InputGenero">Gênero <span style="color: red;">*</span></label>
                     <select class="form-control form-control-sm" id="InputGenero" name="genero" required>
                         <option value="">Selecione o Gênero</option>
+                    
                         {% for genero in generos %}
-                            <option value="{{ genero.gen_cod }}">{{ genero.gen_descricao }}</option>
+                            <option value="{{ genero.gen_cod }}"
+                                {% if pessoa.gen_cod_id == genero.gen_cod %}
+                                    selected
+                                {% endif %}
+                                >
+                                {{ genero.gen_descricao }}
+                            </option>
                         {% endfor %}
+
                     </select>
                 </div>
                 <div class="col-sm-4">
                     <label for="InputOrientacaoSexual">Orientação Sexual <span style="color: red;">*</span></label>
                     <select class="form-control form-control-sm" id="InputOrientacaoSexual" name="orientacaoSexual" required>
                         <option value="">Selecione a Orientação Sexual</option>
-                        {% for orientacaoSexual in orientacaoSexual %}
-                            <option value="{{ orientacaoSexual.ori_cod }}">{{ orientacaoSexual.ori_descricao }}</option>
+                        
+                        {% for ori in orientacaoSexual %}
+                            <option value="{{ ori.ori_cod }}"
+                                {% if pessoa.ori_cod_id == ori.ori_cod %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ ori.ori_descricao }}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -77,7 +115,13 @@
                     <select class="form-control form-control-sm" id="InputEtniaRaca" name="etnia" required>
                         <option value="">Selecione a Etnia/Raça</option>
                         {% for etnia in etnia %}
-                            <option value="{{ etnia.etn_cod }}">{{ etnia.etn_descricao }}</option>
+                            <option value="{{ etnia.etn_cod }}"
+                                {% if pessoa.etn_cod_id == etnia.etn_cod %}
+                                    selected
+                                {% endif %}
+                                >
+                                {{ etnia.etn_descricao }}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -86,16 +130,27 @@
                     <select class="form-control form-control-sm" id="InputEscolaridade" name="escolaridade" required>
                         <option value="">Selecione o nível de escolaridade</option>
                         {% for escolaridade in escolaridade %}
-                            <option value="{{ escolaridade.esc_cod }}">{{ escolaridade.esc_descricao }}</option>
-                        {% endfor %}
+                            <option value="{{ escolaridade.esc_cod }}"
+                            {% if pessoa.esc_cod_id == escolaridade.esc_cod %}
+                                selected
+                            {% endif %} 
+                            >
+                                {{ escolaridade.esc_descricao }}
+                            </option>
+                        
+                            {% endfor %}
                     </select>
                 </div>
                 <div class="col-sm-4">
-                    <label for="InputArea">Área de Artística <span style="color: red;">*</span></label>
-                    <select class="form-control form-control-sm" id="InputArea" name="areaArtistica" required>
-                        <option value="">Selecione a Área</option>
+                    <label for="InputArea">Campo de Artístico</label>
+                    <select class="form-control form-control-sm" id="InputArea" name="areaArtistica">
+                        <option value="">Selecione o Campo</option>
                         {% for area in areaArtistica %}
-                            <option value="{{ area.are_cod }}">{{ area.are_descricao }}</option>
+                            <option value="{{ area.are_cod }}"
+                            {% if pessoa.are_cod_id == area.are_cod %}
+                                selected
+                            {% endif %}
+                            >{{ area.are_descricao }}</option>
                         {% endfor %}
                     </select>
                 </div>  
@@ -132,7 +187,11 @@
                     <select class="form-control form-control-sm" id="InputCidade" name="cidade_naturalidade">
                         <option value="">Selecione a Cidade</option>
                         {% for cidade in cidade %}
-                            <option value="{{ cidade.cid_cod }}">{{ cidade.cid_descricao }}</option>
+                            <option value="{{ cidade.cid_cod }}"
+                            {% if pessoa.cid_cod_id == cidade.cid_cod %}
+                                selected
+                            {% endif %}
+                            >{{ cidade.cid_descricao }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -141,7 +200,11 @@
                     <select class="form-control form-control-sm" id="InputEstado" name="estado_naturalidade">
                         <option value="">Selecione o Estado</option>
                         {% for estado in estado %}
-                            <option value="{{ estado.est_cod }}">{{ estado.est_descricao }}</option>
+                            <option value="{{ estado.est_cod }}"
+                            {% if pessoa.est_cod_id == estado.est_cod %}
+                                selected
+                            {% endif %}
+                            >{{ estado.est_descricao }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -150,7 +213,11 @@
                     <select class="form-control form-control-sm" id="InputImigrante" name="pais_imigrante">
                         <option value="">Selecione o País</option>
                         {% for pais in pais %}
-                            <option value="{{ pais.pai_cod }}">{{ pais.pai_descricao }}</option>
+                            <option value="{{ pais.pai_cod }}"
+                            {% if pessoa.pai_cod_id == pais.pai_cod %}
+                                selected
+                            {% endif %}
+                            >{{ pais.pai_descricao }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -177,18 +244,44 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="InputDataCadastro">Data de Cadastro <span style="color: red;">*</span></label>
-                    <input type="date" name = "data_ingresso" class="form-control form-control-sm" id="InputDataCadastro" aria-describedby="dataCadastroHelp" placeholder="Digite seus dados de cadastro"   value="{{ pessoa.pes_data_ingresso|date:'Y-m-d' }}" onblur="validarDatas()" required>
+                    <input
+                        type="date"
+                        name="data_ingresso"
+                        class="form-control form-control-sm"
+                        id="InputDataCadastro"
+                        aria-describedby="dataCadastroHelp"
+                        placeholder="Digite seus dados de cadastro"
+                        value="{{ pessoa.pes_data_ingresso|date:'Y-m-d' }}"
+                        onblur="validarDatas()"
+                        required
+                    >
                 </div>
             </div>
+            
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="InputDataSaida" id="dataSaidaLabel">Data de Saída</label>
-                    <input type="date" class="form-control form-control-sm" id="InputDataSaida" aria-describedby="dataSaidaHelp"  value="{{ pessoa.pes_data_saida|date:'Y-m-d' }}" placeholder="Digite seus dados de saída" disabled>
+                    <input
+                        type="date"
+                        class="form-control form-control-sm"
+                        id="InputDataSaida"
+                        aria-describedby="dataSaidaHelp"
+                        value="{{ pessoa.pes_data_saida|date:'Y-m-d' }}"
+                        placeholder="Digite seus dados de saída"
+                        disabled
+                    >
                 </div>
             </div>
+            
             <div class="col-sm-2">
-                <div class="form-check" style="padding-top: 39px; padding-left: 39px;" >
-                    <input class="form-check-input" type="checkbox" id="exampleCheckbox" onclick="toggleDataSaida()">
+                <div class="form-check" style="padding-top: 39px; padding-left: 39px;">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="exampleCheckbox"
+                        onclick="toggleDataSaida()"
+                        checked
+                    >
                     <label class="form-check-label" for="exampleCheckbox">
                         Ativo
                     </label>
@@ -222,7 +315,11 @@
                     <select class="form-control form-control-sm" id="InputCidadeEndereco" name="cidade" required>
                         <option value="">Selecione a Cidade</option>
                         {% for cidade in cidade %}
-                            <option value="{{ cidade.cid_cod }}">{{ cidade.cid_descricao }}</option>
+                            <option value="{{ cidade.cid_cod }}"
+                            {% if pessoa.cid_cod_id == cidade.cid_cod %}
+                                selected
+                            {% endif %}
+                            >{{ cidade.cid_descricao }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -231,7 +328,11 @@
                     <select class="form-control form-control-sm" id="InputEstadoEndereco" name="estado" required>
                         <option value="">Selecione o Estado</option>
                         {% for estado in estado %}
-                            <option value="{{ estado.est_cod }}">{{ estado.est_descricao }}</option>
+                            <option value="{{ estado.est_cod }}"
+                            {% if pessoa.est_cod_id == estado.est_cod %}
+                                selected
+                            {% endif %}
+                            >{{ estado.est_descricao }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -244,7 +345,7 @@
                 </div>
             </div>
     </div>
-    <!-- Incluindo o JavaScript do Bootstrap -->
+    {% comment %} <!-- Incluindo o JavaScript do Bootstrap --> {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
         
@@ -306,7 +407,8 @@
         
         // Função para verificar se o CPF já está cadastrado
         async function verificarDuplicidadeCPF(cpf) {
-            const url = `{% url 'verificar_cpf' %}?cpf=${cpf}`;
+            const pessoa_id = document.getElementById('pessoa_id')?.value || '';
+            const url = `{% url 'verificar_cpf' %}?cpf=${cpf}&pes_cod=${pessoa_id}`;
         
             try {
                 const response = await fetch(url);
@@ -339,7 +441,7 @@
             }
         
             // Se o CPF for válido e não duplicado, exibe a mensagem de sucesso e envia o formulário
-            alert('Salvo com sucesso!');
+            // alert('Salvo com sucesso!');
             document.forms[0].submit();
         }
         //mascara Celular e Telefone

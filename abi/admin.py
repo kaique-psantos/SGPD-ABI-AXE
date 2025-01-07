@@ -151,7 +151,7 @@ class BolsistaAdmin(admin.ModelAdmin):
 admin.site.register(Bolsista, BolsistaAdmin)
 
 class PessoaAdmin(admin.ModelAdmin):
-    list_display = ('pes_cod_link', 'delete_link', 'pes_nome', 'pes_data_nascimento', 'pes_cpf', 'ori_cod', 'gen_cod', 'esc_cod', 'etn_cod', 'pes_data_ingresso', 'pes_data_saida', 'are_cod', 'pes_ativo')
+    list_display = ('pes_cod_link', 'delete_link', 'pes_nome', 'pes_data_nascimento', 'pes_cpf', 'pes_data_ingresso', 'are_cod', 'pes_ativo')
     search_fields = ['pes_nome']
     ordering = ['pes_nome']
 
