@@ -137,7 +137,7 @@ class OficioAdmin(CustomModelAdmin):
 
     def botao_impressao(self, obj):
         url = reverse('oficio_imprimir', args=[obj.ofi_cod])
-        return format_html('<a class="btn" href="{}"><i class="fa-solid fa-print"></i></a>', url)
+        return format_html('<a class="btn" href="{}" target="_blank"><i class="fa-solid fa-print"></i></a>', url)
 
     botao_impressao.short_description = 'Impressão'
 admin.site.register(Oficio, OficioAdmin)

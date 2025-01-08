@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofício - {{ofi_numero}}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/relatorios.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <img src="{% static 'assets/images/logo/ufal-sigla.png' %}" alt="Logo UFAL" class="logo-left">
+        <div class="title">
+            SERVIÇO PÚBLICO FEDERAL<br>
+            UNIVERSIDADE FEDERAL DE ALAGOAS<br>
+            CAMPUS DO SERTÃO<br>
+        </div>
+        <img src="{% static 'assets/images/logo/sertao-logo.png' %}" alt="Logo Sertão" class="logo-right">
+    </div>
+    
+
+    <!-- Content -->
+    <div class="content">
+        <p><span class="text-bold">Ofício de solicitação nº:</span> <span>{{ofi_numero}}</span></p>
+        <p class="text-right">{{ofi_data}}</p>
+
+        <p><span class="text-bold">Do:</span> Grupo Cultural Afoxé Abí Axé Egbé – UFAL Campus do Sertão</p>
+        <p><span class="text-bold">À:</span> {{ofi_destinatario}}</p>
+
+        <p><span class="text-bold">Assunto:</span> {{ofi_assunto}}</p>
+
+        <p class="text-justify">{{ofi_texto}}</p>
+
+        <br><br>
+
+        <div class="line"></div>
+        <p class="center"><span class="text-bold">{{nome}}</span> 
+            <br>{{cargo}} 
+            <br> CPF: {{cpf}}</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Rodovia AL 145, Km 3, nº 3849<br>
+        Cidade Universitária/Campus do Sertão<br>
+        57480000 - Delmiro Gouveia, AL – Brasil
+    </div>
+
+    <script>
+        window.onload = function() {
+            window.print();
+        };
+    </script>
+</body>
+</html>

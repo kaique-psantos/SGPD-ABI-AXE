@@ -5,9 +5,7 @@ from django.urls import reverse
 from .functions.charts import *
 import math
 import os
-from django.conf import settings
 from django.http import HttpResponse
-from pyreportjasper import PyReportJasper
 from django.db.models import F , Func
 import locale
 from admin_abi.forms import *
@@ -19,6 +17,11 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.contenttypes.models import ContentType
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.utils import timezone
 
 @login_required
 def index(request):
@@ -284,60 +287,6 @@ def verificar_cpf(request):
     existe = qs.exists()
     return JsonResponse({"existe": existe})
 
-def imprimir_oficio(request, ofi_cod):
-    
-    oficio = Oficio.objects.filter(ofi_cod=ofi_cod).select_related('dir_cod__pes_cod', 'dir_cod__car_cod').annotate(
-            pes_nome=F('dir_cod__pes_cod__pes_nome'),
-            car_descricao=F('dir_cod__car_cod__car_descricao'),
-            cpf=F('dir_cod__pes_cod__pes_cpf')
-        ).values(
-            'ofi_destinatario',
-            'ofi_assunto',
-            'ofi_numero',
-            'ofi_data',
-            'ofi_texto',
-            'pes_nome',
-            'car_descricao',
-            'cpf'
-        ).first()
-
-    jasper_file = os.path.join(settings.MEDIA_ROOT, 'reports', 'Oficio.jasper')
-    output_file = os.path.join(settings.MEDIA_ROOT, 'reports/temp', f"oficio_{oficio['ofi_assunto']}.pdf")
-    
-    ofi_data = oficio['ofi_data']
-    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
-    data_formatada = ofi_data.strftime('%d de %B de %Y')
-    teste =  "Delmiro Gouveia - AL, "+ data_formatada
-    
-
-    parametros = {
-        'ofi_numero': oficio['ofi_numero'],
-        'ofi_data':  teste,
-        'ofi_destinatario': oficio['ofi_destinatario'],
-        'ofi_texto': oficio['ofi_texto'],
-        'nome': oficio['pes_nome'],
-        'cargo': oficio['car_descricao'],
-        'cpf': oficio['cpf'],
-        'ofi_assunto': oficio['ofi_assunto'],
-    }
-
-    jasper = PyReportJasper()
-
-    jasper.config(
-        input_file=jasper_file,
-        output_file=output_file,
-        output_formats=["pdf"],
-        locale='pt_BR',
-        parameters=parametros,
-    )
-
-    jasper.process_report()
-
-    with open(output_file, 'rb') as pdf_file:
-        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f"attachment; filename='oficio_{oficio['ofi_assunto']}.pdf'"
-        return response
-
 def registrar_log_admin(user, obj, action_flag, change_message=''):
     LogEntry.objects.log_action(
         user_id=user.id,
@@ -347,3 +296,49 @@ def registrar_log_admin(user, obj, action_flag, change_message=''):
         action_flag=action_flag,
         change_message=change_message
     )
+    
+    
+    from django.shortcuts import render
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
+@login_required
+def imprimir_oficio(request, ofi_cod):
+    oficio = Oficio.objects.filter(ofi_cod=ofi_cod).select_related('dir_cod__pes_cod', 'dir_cod__car_cod').annotate(
+        pes_nome=F('dir_cod__pes_cod__pes_nome'),
+        car_descricao=F('dir_cod__car_cod__car_descricao'),
+        cpf=F('dir_cod__pes_cod__pes_cpf')
+    ).values(
+        'ofi_destinatario',
+        'ofi_assunto',
+        'ofi_numero',
+        'ofi_data',
+        'ofi_texto',
+        'pes_nome',
+        'car_descricao',
+        'cpf'
+    ).first()
+
+    ofi_data = oficio['ofi_data']
+    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+    data_formatada = ofi_data.strftime('%d de %B de %Y')
+    data_completa = f"Delmiro Gouveia - AL, {data_formatada}"
+
+    context = {
+        'ofi_numero': oficio['ofi_numero'],
+        'ofi_data': data_completa,
+        'ofi_destinatario': oficio['ofi_destinatario'],
+        'ofi_texto': oficio['ofi_texto'],
+        'nome': oficio['pes_nome'],
+        'cargo': oficio['car_descricao'],
+        'cpf': oficio['cpf'],
+        'ofi_assunto': oficio['ofi_assunto'],
+    }
+
+ 
+    html_content = render_to_string('pages/oficio.html', context)
+
+    response = HttpResponse(html_content, content_type='text/html')
+    response['Content-Disposition'] = 'inline; filename="oficio.html"'
+
+    return response
