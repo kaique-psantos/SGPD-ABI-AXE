@@ -229,19 +229,25 @@
             <h6 style="margin: 0;">Cadastro</h6>
         </div>
         <br>
-        
+       
         <div class="form-row">
+            
             <div class="col-sm-3">
-                <div class="image-upload-container"> 
-                    <div class="image-upload-placeholder">(Imagem)</div>
-                    <div class="image-upload-icons"> 
-                        <i class="fas fa-upload"></i> 
-                        <i class="fas fa-camera"></i>
-                        <i class="fas fa-expand"></i> 
-                    </div> 
-                    <input type="file" class="form-control-file" id="inputImagem" name="imagem">
-                </div> 
-            </div> 
+                <div class="image-upload-container">
+                    <input type="file" class="form-control-file" id="inputImagem" name="pes_imagem" onchange="previewImage(event)">
+                    
+                    {% if pessoa.pes_imagem %}
+                        <!-- Exibe a imagem existente -->
+                        <img id="profilePicturePreview" src="{{ pessoa.pes_imagem.url }}" alt="Imagem da Pessoa" style="max-width: 100%; margin-top: 10px;" />
+                    {% else %}
+                        <!-- Placeholder para quando não há imagem -->
+                        <img id="profilePicturePreview" alt="Preview da Imagem" style="display: none; max-width: 100%; margin-top: 10px;" />
+                    {% endif %}
+                </div>
+            </div>
+            
+            
+            
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="InputDataCadastro">Data de Cadastro <span style="color: red;">*</span></label>
@@ -524,19 +530,24 @@
             nextSibling.innerText = fileName
         })
     
+       
         function previewImage(event) {
             const preview = document.getElementById('profilePicturePreview');
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
-                }
+                };
                 reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
             }
         }
-    
+        
+        
         document.getElementById('myForm').addEventListener('submit', function(event) {
             // Check the validity of the form
             if (!this.checkValidity()) {
@@ -557,11 +568,37 @@
         content: "Procurar";
     }
     #profilePicturePreview {
-        display: none;
+        display: block;
         max-width: 200px;
         max-height: 200px;
         margin-top: 10px;
     } 
-    .image-upload-container { border: 1px solid #ddd; padding: 10px; text-align: center; position: relative; width: 200px; height: 200px; } .image-upload-container img { max-width: 100%; max-height: 100%; } .image-upload-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: #aaa; } .image-upload-icons { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); } .image-upload-icons i { margin: 0 5px; cursor: pointer; }  
+    .image-upload-container { 
+        border: 1px solid #ddd; 
+        padding: 10px; 
+        text-align: center; 
+        position: relative; 
+        width: 200px; 
+        height: 200px; } 
+    .image-upload-container img { 
+        max-width: 100%; 
+        max-height: 100%; } 
+    .image-upload-placeholder { 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100%; 
+        color: #aaa; } 
+    .image-upload-icons { 
+        position: absolute; 
+        bottom: 10px; 
+        left: 50%; 
+        transform: translateX(-50%); } 
+    .image-upload-icons i { 
+        margin: 0 5px; cursor: pointer; }  
+
+        
+
+
 </style>
 {% endblock %}

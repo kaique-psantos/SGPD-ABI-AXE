@@ -152,7 +152,7 @@ def pessoa_view(request):
         celular = request.POST.get('celular')
 
         # Campo de imagem
-        imagem = request.FILES.get('imagem')
+        imagem = request.FILES.get('pes_imagem')
 
         # Endereço
         logradouro = request.POST.get('logradouro')

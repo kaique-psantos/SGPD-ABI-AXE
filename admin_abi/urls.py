@@ -12,6 +12,7 @@ from templates.includes import *
 
 
 
+
 urlpatterns = [
   path('', dashboard, name='index'),
 

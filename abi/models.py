@@ -133,7 +133,7 @@ class Pessoa(models.Model):
     pes_data_saida = models.DateField(null=True, blank=True, verbose_name="Data de Saída")
     pes_ativo = models.BooleanField(default=True, verbose_name="Ativo")
     are_cod = models.ForeignKey(AreaArtistica, on_delete=models.SET_NULL, null=True, verbose_name="Área Artistica")
-    pes_imagem = models.ImageField(upload_to='imagens/', null=True, blank=True, verbose_name="Imagem")
+    pes_imagem = models.ImageField(upload_to='imagens/integrantes/', null=True, blank=True, verbose_name="Imagem")
     cid_cod = models.ForeignKey(Cidade, on_delete=models.CASCADE, verbose_name="Cidade", default=1)  # Valor padrão adicionado
     est_cod = models.ForeignKey(Estado, on_delete=models.CASCADE, verbose_name="Estado", default=1)  # Valor padrão adicionado
     end_rua = models.CharField(max_length=255, null=True, blank=True, verbose_name="Rua")
