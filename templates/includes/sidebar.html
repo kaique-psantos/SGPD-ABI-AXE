@@ -90,7 +90,7 @@
           
           <ul class="pcoded-submenu">
             {% if perms.abi.view_pessoa %}
-            <li data-username="Integrantes"><a href="/admin/abi/pessoa/">Integrantes</a></li>
+           <li data-username="Integrantes"><a href="/admin/abi/pessoa/">Integrantes</a></li>
             {% endif %}
             {% if perms.abi.view_bolsista %}
             <li data-username="Bolsistas"><a href="/admin/abi/bolsista/">Bolsistas</a></li>
@@ -149,6 +149,10 @@
 
             {% if perms.abi.view_genero %}
             <li data-username="Gêneros"><a href="/admin/abi/genero/">Gêneros</a></li>
+            {% endif %}
+
+            {% if perms.abi.view_oficinas %}
+            <li data-username="Oficinas"><a href="/admin/abi/oficina/">Oficinas</a></li>
             {% endif %}
 
             {% if perms.abi.view_orientacaosexual %}

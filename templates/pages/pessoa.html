@@ -27,7 +27,7 @@
     <div class="d-flex justify-content-end">
         <button type="button" class="btn btn-secondary ms-4"  id="btnVoltarIntegrante" onclick="window.location.href='{% url 'admin:abi_pessoa_changelist' %}'">Voltar</button>
     </div>
-
+    {% if pessoa.pes_cod %}
     <div>
 
         <a href="/admin/abi/pessoa/{{ pessoa.pes_cod }}/history/" class="d-inline-flex align-items-center">
@@ -35,6 +35,7 @@
         </a>        
 
     </div>
+    {% endif %}
     </div>
 
     {% comment %} Aba de navegação {% endcomment %}   
@@ -183,8 +184,8 @@
             <br>
             <div class="form-row">
                 <div class="col-sm-4">
-                    <label for="InputCidade">Cidade</label>
-                    <select class="form-control form-control-sm" id="InputCidade" name="cidade_naturalidade">
+                    <label for="InputCidade">Cidade <span style="color: red;">*</span></label>
+                    <select class="form-control form-control-sm" id="InputCidade" name="cidade_naturalidade" required>
                         <option value="">Selecione a Cidade</option>
                         {% for cidade in cidade %}
                             <option value="{{ cidade.cid_cod }}"
@@ -196,8 +197,8 @@
                     </select>
                 </div>
                 <div class="col-sm-4">
-                    <label for="InputEstado">Estado</label>
-                    <select class="form-control form-control-sm" id="InputEstado" name="estado_naturalidade">
+                    <label for="InputEstado">Estado <span style="color: red;">*</span></label>
+                    <select class="form-control form-control-sm" id="InputEstado" name="estado_naturalidade" required>
                         <option value="">Selecione o Estado</option>
                         {% for estado in estado %}
                             <option value="{{ estado.est_cod }}"

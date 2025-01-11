@@ -122,8 +122,8 @@ class Pessoa(models.Model):
     pes_email = models.CharField(max_length=255, verbose_name="E-mail")
     pes_telefone = models.CharField(max_length=15, verbose_name="Telefone")
     pes_celular = models.CharField(max_length=15, verbose_name="Celular")
-    cid_naturalidade = models.ForeignKey(Cidade, on_delete=models.SET_NULL, null=True, related_name='naturalidade', verbose_name="Cidade")
-    est_naturalidade = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True, related_name='naturalidade', verbose_name="Estado")
+    cid_naturalidade = models.ForeignKey(Cidade, on_delete=models.SET_NULL,blank=True, null=True, related_name='naturalidade', verbose_name="Cidade")
+    est_naturalidade = models.ForeignKey(Estado, on_delete=models.SET_NULL, blank=True, null=True, related_name='naturalidade', verbose_name="Estado")
     end_cod = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, verbose_name="Endereço")
     ori_cod = models.ForeignKey(OrientacaoSexual, on_delete=models.SET_NULL, null=True, verbose_name="Orientação Sexual")
     gen_cod = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, verbose_name="Gênero")
@@ -180,12 +180,6 @@ class Bolsista(models.Model):
     bol_tema = models.CharField(max_length=255, verbose_name = "Tema de Pesquisa", null=True, blank=True)
     cur_cod = models.ForeignKey(Curso, verbose_name= "Curso", on_delete=models.SET_NULL, null=True, blank=True)
     bol_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
-
-class Oficineiro(models.Model):
-    ofc_cod = models.AutoField(primary_key=True)
-    pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, null= True, verbose_name = "Integrante")
-    ofc_descricao = models.CharField(max_length=255, verbose_name = "Nome da Oficina")
-    ofc_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
 
 class MembroDiretoria(models.Model):
     dir_cod = models.AutoField(primary_key=True)
@@ -245,6 +239,7 @@ class Evento(models.Model):
     eve_local_retorno = models.CharField(max_length=255, null=True, blank=True, verbose_name = "Local de Retorno")
     eve_horario_retorno = models.TimeField(null=True, blank=True, verbose_name = "Horário de Retorno")
     eve_data_retorno = models.DateField(null=True, blank=True, verbose_name = "Data do Retorno")
+    Participantes = models.ManyToManyField(Pessoa, related_name="Participantes",null=True, blank=True)
 
     def clean(self):
         if self.eve_data < (datetime.strptime('01/01/2023', '%d/%m/%Y').date()):
@@ -261,25 +256,18 @@ class Evento(models.Model):
     def __str__(self):
         return self.eve_nome
 
-class EventoXPessoa(models.Model):
-    eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE)
-    pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = (('eve_cod', 'pes_cod'),)
-        verbose_name = "Integrante no Evento"
-        verbose_name_plural = "Integrantes no Evento"
 
 class Agenda(models.Model):
     age_cod = models.AutoField(primary_key=True)
-    age_descricao = models.TextField(max_length=255, verbose_name = "Descrição")
+    age_titulo = models.CharField(max_length=100, verbose_name="Título")
     age_data = models.DateField(verbose_name = "Data do Evento/Compromisso")
     eve_cod = models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name = "Evento", null=True, blank=True)
+    age_descricao = models.TextField(max_length=1000, verbose_name = "Descrição")
 
     
     
     def __str__(self):
-        return f" {self.age_descricao}"
+        return f" {self.age_titulo}"
 
     class Meta:
         verbose_name = "Compromisso"
@@ -291,3 +279,17 @@ class UsuarioPessoa(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class Oficina(models.Model):
+    ofc_cod = models.AutoField(primary_key=True)
+    ofc_titulo = models.CharField(max_length=100, verbose_name="Título")
+    ofc_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
+    
+    def __str__(self):
+        return self.ofc_titulo
+    
+class Oficineiro(models.Model):
+    ofc_cod = models.AutoField(primary_key=True)
+    pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, null= True, verbose_name = "Integrante")
+    Oficinas = models.ManyToManyField(Oficina, verbose_name = "Oficinas")
+    ofc_ativo = models.BooleanField(default=True, verbose_name = "Ativo")

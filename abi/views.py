@@ -12,7 +12,7 @@ from admin_abi.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-from abi.templates import *
+from templates import *
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
@@ -169,7 +169,7 @@ def pessoa_view(request):
         if not (
             nome and cpf and data_nascimento and cidade_naturalidade_id
             and estado_naturalidade_id and genero_id and orientacao_sexual_id
-            and etnia_id and escolaridade_id and area_artistica_id
+            and etnia_id and escolaridade_id 
             and logradouro and bairro and numero and cidade_id and estado_id
         ):
             messages.error(request, "Todos os campos obrigatórios devem ser preenchidos.")

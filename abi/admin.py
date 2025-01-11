@@ -5,7 +5,7 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.html import format_html
-from .views import pessoa_view
+from .views import *
 
 class CustomModelAdmin(admin.ModelAdmin):
     def history_view(self, request, object_id, extra_context=None):
@@ -181,14 +181,6 @@ class EventoAdmin(CustomModelAdmin):
 
 admin.site.register(Evento, EventoAdmin)
 
-#Evento - Pessoa
-#A ser conversado
-class EventoXPessoaAdmin(CustomModelAdmin):
-    list_display = ('eve_cod', 'pes_cod',)
-    search_fields = ('eve_cod__eve_nome', 'pes_cod__pes_nome',)
-    ordering =  ('eve_cod',)
-
-admin.site.register(EventoXPessoa, EventoXPessoaAdmin)
 
 #Agenda
 class AgendaAdmin(admin.ModelAdmin):
@@ -199,8 +191,8 @@ admin.site.register(Agenda, AgendaAdmin)
 
 
 class OficineiroAdmin(CustomModelAdmin):
-    list_display = ('pes_cod', 'ofc_descricao', 'ofc_ativo',)
-    search_fields = ('ofc_descricao',)
+    list_display = ('pes_cod','ofc_ativo',)
+    search_fields = ('pes_cod__pes_nome',)
     ordering = ('pes_cod',)
 admin.site.register(Oficineiro, OficineiroAdmin)
 
@@ -211,3 +203,9 @@ class CursoAdmin(CustomModelAdmin):
     search_fields = ('cur_descricao',)
     ordering = ('cur_descricao',)
 admin.site.register(Curso, CursoAdmin)
+
+class OficinaAdmin(CustomModelAdmin):
+    list_display = ('ofc_titulo', 'ofc_ativo')
+    search_fields = ('ofc_titulo',)
+    ordering = ('ofc_titulo',)
+admin.site.register(Oficina, OficinaAdmin)
