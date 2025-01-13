@@ -293,3 +293,15 @@ class Oficineiro(models.Model):
     pes_cod = models.ForeignKey(Pessoa, on_delete=models.CASCADE, null= True, verbose_name = "Integrante")
     Oficinas = models.ManyToManyField(Oficina, verbose_name = "Oficinas")
     ofc_ativo = models.BooleanField(default=True, verbose_name = "Ativo")
+
+from django.db.models import Q
+
+def get_pessoa_imagem(self):
+    try:
+        usuario_pessoa = UsuarioPessoa.objects.get(user=self)  # Corrige para 'user' em vez de 'usuario'
+        return usuario_pessoa.pes_cod.pes_imagem.url if usuario_pessoa.pes_cod and usuario_pessoa.pes_cod.pes_imagem else None
+    except UsuarioPessoa.DoesNotExist:
+        return None
+
+User.add_to_class('get_pessoa_imagem', get_pessoa_imagem)
+

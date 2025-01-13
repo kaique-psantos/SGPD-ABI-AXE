@@ -46,7 +46,7 @@ def profile(request):
   pessoa_existe = UsuarioPessoa.objects.filter(user=user).exists()
   if pessoa_existe:
     pessoa = UsuarioPessoa.objects.get(user=user)
-    cargo = MembroDiretoria.objects.get(pes_cod=pessoa.pes_cod)
+    
 
     data=pessoa.pes_cod.pes_data_ingresso
     formato = date(data.year, data.month, data.day)
@@ -58,9 +58,9 @@ def profile(request):
       'cpf': pessoa.pes_cod.pes_cpf,
       'email': pessoa.pes_cod.pes_email,
       'usuario': user.username,
-      'cargo': f'Cargo: {cargo.car_cod} - {pessoa.pes_cod.are_cod}',
       'dt_ingresso': f'Data de Ingresso: {data_formatada}',
       'existe': pessoa_existe,
+      'imagem_url': pessoa.pes_cod.pes_imagem.url,
     }
   else:
     context = {
@@ -103,6 +103,7 @@ def profile_update(request):
         'cargo': f'Cargo: {cargo.car_cod} - {pessoa.pes_cod.are_cod}',
         'dt_ingresso': f'Data de Ingresso: {data_formatada}',
         'existe': pessoa_existe,
+         'imagem_url': pessoa.pes_cod.pes_imagem.url,
       }
   else:
     if request.method == 'POST':

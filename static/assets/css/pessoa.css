@@ -1,0 +1,37 @@
+.required-asterisk {
+    color: red;
+    margin-left: 5px;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Procurar";
+}
+#profilePicturePreview {
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+} 
+.image-upload-container { 
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    text-align: center; 
+    position: relative; 
+    width: 200px; 
+    height: 200px; } 
+.image-upload-container img { 
+    max-width: 100%; 
+    max-height: 100%; } 
+.image-upload-placeholder { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100%; 
+    color: #aaa; } 
+.image-upload-icons { 
+    position: absolute; 
+    bottom: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); } 
+.image-upload-icons i { 
+    margin: 0 5px; cursor: pointer; }  

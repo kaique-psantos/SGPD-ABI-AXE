@@ -4,11 +4,7 @@
   <div class="m-header">
     <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
     <a href="{% url 'index' %}" class="b-brand">
-      <!--
-      <div class="b-bg">
-        <i class="feather icon-trending-up"></i>
-      </div>
-      -->
+  
       <img src="{% static 'assets/images/logo_abi.png' %}">
       <span class="b-title">Abí Axé Egbé</span>
     </a>
@@ -50,7 +46,13 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right profile-notification">
             <div class="pro-head">
-              <img src="{% static 'assets/images/user/logo_user.jpg' %}" class="img-radius" alt="User-Profile-Image">
+              
+              {% if request.user.get_pessoa_imagem %}
+              <img src="{{ request.user.get_pessoa_imagem }}" alt="Profile Image" class="img-radius" style="width: 40px; height: 40px;">
+            {% else %}
+              <img src="{% static 'assets/images/user/logo_user.jpg' %}" alt="Profile Image" class="img-radius">
+            {% endif %}
+
               <span>{{ user.first_name }}</span>
               {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
